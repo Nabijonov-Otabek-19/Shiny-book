@@ -2,11 +2,14 @@ package uz.gita.bookappwithfirebase.repository
 
 import kotlinx.coroutines.flow.Flow
 import uz.gita.bookappwithfirebase.data.common.BookData
+import uz.gita.bookappwithfirebase.data.common.CategoryData
 
 interface AppRepository {
 
-    fun getBooks(): Flow<List<BookData>>
+    fun getCategories(): Flow<Result<List<CategoryData>>>
 
-    fun getFavouriteBooks(): Flow<List<BookData>>
+    fun getBooks(): Flow<Result<List<BookData>>>
+
+    fun getFavouriteBooks(): Flow<Result<List<BookData>>>
 
 }

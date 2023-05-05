@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
 
 class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
 
-    private lateinit var list: ArrayList<BookData>
+    private var list: List<BookData> = ArrayList()
 
-    fun setData(l: ArrayList<BookData>) {
+    fun setData(l: List<BookData>) {
         list = l
+        notifyItemRangeChanged(0, list.size)
     }
 
     inner class ItemHolder(private val binding: ItemBookBinding) :
@@ -20,8 +22,9 @@ class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
 
         fun bind() {
             binding.apply {
-                imgIcon.setImageResource(list[adapterPosition].icon)
                 txtTitle.text = list[adapterPosition].name
+                Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)
+                    .into(imgIcon)
             }
         }
     }
