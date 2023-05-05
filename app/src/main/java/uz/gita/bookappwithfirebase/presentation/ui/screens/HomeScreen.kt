@@ -20,7 +20,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         val list = ArrayList<BookData>()
         (0..15).forEach {
-            list.add(BookData(it, "Good to great sfsdfjsfj", R.drawable.icon, ""))
+            list.add(BookData(it, "Good to great", R.drawable.icon, ""))
         }
 
         adapter.setData(list)
