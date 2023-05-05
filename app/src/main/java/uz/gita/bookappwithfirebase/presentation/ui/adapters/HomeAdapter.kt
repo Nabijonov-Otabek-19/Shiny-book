@@ -17,8 +17,20 @@ class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
         notifyItemRangeChanged(0, list.size)
     }
 
+    private var clickListener: ((BookData) -> Unit)? = null
+
+    fun setClickListener(l: (BookData) -> Unit) {
+        clickListener = l
+    }
+
     inner class ItemHolder(private val binding: ItemBookBinding) :
         ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                clickListener?.invoke(list[adapterPosition])
+            }
+        }
 
         fun bind() {
             binding.apply {

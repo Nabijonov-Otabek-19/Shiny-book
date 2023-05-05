@@ -9,5 +9,21 @@
         android:id="@+id/homeScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.HomeScreen"
         android:label="HomeScreen"
-        tools:layout="@layout/screen_home" />
+        tools:layout="@layout/screen_home">
+        <action
+            android:id="@+id/action_homeScreen_to_bookReadScreen"
+            app:destination="@id/bookReadScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookReadScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.BookReadScreen"
+        android:label="BookReadScreen"
+        tools:layout="@layout/screen_book_read">
+
+        <argument
+            android:name="bookData"
+            app:argType="uz.gita.bookappwithfirebase.data.common.BookData"
+            app:nullable="true" />
+    </fragment>
 </navigation>

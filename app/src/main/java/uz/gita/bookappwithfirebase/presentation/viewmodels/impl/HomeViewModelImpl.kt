@@ -9,6 +9,7 @@ import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.presentation.viewmodels.HomeViewModel
 import uz.gita.bookappwithfirebase.repository.impl.AppRepositoryImpl
+import java.io.File
 
 class HomeViewModelImpl : HomeViewModel, ViewModel() {
 
@@ -17,6 +18,8 @@ class HomeViewModelImpl : HomeViewModel, ViewModel() {
     override val booksData = MutableLiveData<List<BookData>>()
     override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
+
+    val bookFilesData = MutableLiveData<List<File>>()
 
     init {
         getAllData()
@@ -34,5 +37,11 @@ class HomeViewModelImpl : HomeViewModel, ViewModel() {
                 bookList.onSuccess { booksData.value = it }
                 bookList.onFailure { errorData.value = it.message }
             }.launchIn(viewModelScope)
+
+//        repository.downloadFiles()
+//            .onEach { listFiles ->
+//                listFiles.onSuccess { bookFilesData.value = it }
+//                listFiles.onFailure { errorData.value = it.message }
+//            }.launchIn(viewModelScope)
     }
 }

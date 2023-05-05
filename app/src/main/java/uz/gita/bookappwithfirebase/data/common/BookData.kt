@@ -1,5 +1,7 @@
 package uz.gita.bookappwithfirebase.data.common
 
+import java.io.Serializable
+
 data class BookData(
     val author: String,
     val name: String,
@@ -8,4 +10,4 @@ data class BookData(
     val genre: String,
     val year: String,
     val bookUrl: String
-)
+) : Serializable
