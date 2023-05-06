@@ -37,16 +37,30 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 //            logd(it.toString())
 //        }
 
-        viewBinding.btnLoadFiles.setOnClickListener {
-            repository.downloadFile()
+//        viewBinding.btnLoadFiles.setOnClickListener {
+//            repository.downloadFile()
+//                .onEach { list ->
+//                    list.onSuccess { logd(it.name) }
+//                    list.onFailure { logd(it.toString()) }
+//                }.launchIn(scope)
+//        }
+
+        adapter.setClickListener { book ->
+            repository.downloadBookByUrl(requireContext(), book)
                 .onEach { list ->
-                    list.onSuccess { logd(it.name) }
+                    viewBinding.progressBar.visibility = View.VISIBLE
+                    list.onSuccess {
+                        logd(it.name)
+                        viewBinding.progressBar.visibility = View.GONE
+                        findNavController().navigate(
+                            HomeScreenDirections.actionHomeScreenToBookReadScreen(
+                                book
+                            )
+                        )
+                    }
                     list.onFailure { logd(it.toString()) }
                 }.launchIn(scope)
-        }
 
-        adapter.setClickListener {
-            findNavController().navigate(HomeScreenDirections.actionHomeScreenToBookReadScreen(it))
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {

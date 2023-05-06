@@ -1,12 +1,15 @@
 package uz.gita.bookappwithfirebase.repository.impl
 
+import android.content.Context
 import android.os.Environment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flowOn
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.repository.AppRepository
@@ -28,54 +31,43 @@ class AppRepositoryImpl : AppRepository {
 
     private val fireStore = Firebase.firestore
     private val storage = FirebaseStorage.getInstance()
+    private val collectionName = fireStore.collection("books")
 
 
-    fun downloadFiles(): Flow<Result<List<File>>> = callbackFlow {
-        val list = ArrayList<File>()
-        val rootFile = File(Environment.getExternalStorageDirectory(), "Books")
-        if (!rootFile.exists()) rootFile.mkdirs()
-
-        storage.reference.child("books").listAll()
-            .addOnSuccessListener { listResult ->
-                val fileRefs = listResult.items
-                for (file in fileRefs) {
-                    logd("Repo file name = ${file.name}")
-                    val temp = File(rootFile, file.name)
-                    file.getFile(temp)
-                        .addOnSuccessListener {
-                            list.add(temp)
-                            trySend(Result.success(list))
-                        }
-                        .addOnFailureListener { trySend(Result.failure(it)) }
-                        .addOnProgressListener {
-                            val progress = it.bytesTransferred * 100 / it.totalByteCount
-                            logd("progress = $progress")
-                        }
-                }
-            }
-            .addOnFailureListener { trySend(Result.failure(it)) }
-        awaitClose()
-    }
-
-    // pdfView
-    fun downloadFile(): Flow<Result<File>> = callbackFlow {
-        val rootFile = File(Environment.getExternalStorageDirectory(), "Demo")
-        if (!rootFile.exists()) rootFile.mkdirs()
-
-        val temp = File(rootFile, "missing.pdf")
-        storage.reference.child("Missing.pdf")
-            .getFile(temp)
+    fun getAllBooks(): Flow<Result<List<BookData>>> = callbackFlow {
+        collectionName.get()
             .addOnSuccessListener {
-                trySend(Result.success(temp))
+                val data = it.toObjects(BookData::class.java)
+                trySend(Result.success(data))
             }
-            .addOnFailureListener { logd(it.message.toString()) }
-
-            .addOnProgressListener {
-                val progress = it.bytesTransferred * 100 / it.totalByteCount
-                logd("progress = $progress")
+            .addOnFailureListener {
+                trySend(Result.failure(it))
             }
         awaitClose()
     }
+
+    fun downloadBookByUrl(context: Context, book: BookData) = callbackFlow<Result<BookData>> {
+        if (File(context.filesDir, book.name).exists()) {
+            logd("Book is installed")
+            trySend(Result.success(book))
+        } else {
+            logd("Book is installing...")
+            storage.reference.child("books/${book.name}.pdf")
+                .getFile(File(context.filesDir, book.name))
+                .addOnSuccessListener {
+                    trySend(Result.success(book))
+                }
+                .addOnFailureListener {
+                    trySend(Result.failure(it))
+                }
+                .addOnProgressListener {
+                    val progress = it.bytesTransferred * 100 / it.totalByteCount
+                    logd("progress = $progress")
+                }
+        }
+        awaitClose()
+    }
+        .flowOn(Dispatchers.IO)
 
     override fun getCategories(): Flow<Result<List<CategoryData>>> = callbackFlow {
         fireStore.collection("categories").get()

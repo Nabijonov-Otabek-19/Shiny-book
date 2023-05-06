@@ -32,7 +32,7 @@ class HomeViewModelImpl : HomeViewModel, ViewModel() {
                 categoryList.onFailure { errorData.value = it.message }
             }.launchIn(viewModelScope)
 
-        repository.getBooks()
+        repository.getAllBooks()
             .onEach { bookList ->
                 bookList.onSuccess { booksData.value = it }
                 bookList.onFailure { errorData.value = it.message }
