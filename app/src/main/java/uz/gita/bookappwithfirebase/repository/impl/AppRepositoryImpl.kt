@@ -1,6 +1,7 @@
 package uz.gita.bookappwithfirebase.repository.impl
 
 import android.content.Context
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -79,7 +80,35 @@ class AppRepositoryImpl : AppRepository {
     override fun getFavouriteBooks(): Flow<Result<List<BookData>>> = callbackFlow {}
 
     override fun getRecommendedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_BOOK_NAME).limit(2).get()
+        fireStore.collection(Constants.CN_BOOK_NAME).get()
+            .addOnSuccessListener {
+                val list = ArrayList<QueryDocumentSnapshot>()
+
+                it.forEach { document -> list.add(document) }
+                val sizeOfCollection = it.size()
+
+                val randomDocuments = mutableListOf<BookData>()
+                val uniqueRandomIndexes = mutableSetOf<Int>()
+                val size = 3 // Random olmoqchi bo'lgan data lar soni
+
+                while (uniqueRandomIndexes.size < size) { // sikl bo'ylab random sonlarni olish
+                    uniqueRandomIndexes.add((0 until sizeOfCollection).random())
+                }
+
+                uniqueRandomIndexes.forEach { randomIndex ->
+                    val data = list[randomIndex].toObject(BookData::class.java)
+                    randomDocuments.add(data)
+                }
+                trySend(Result.success(randomDocuments))
+            }
+            .addOnFailureListener {
+                trySend(Result.failure(it))
+            }
+        awaitClose()
+    }
+
+    override fun getSavedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
+        fireStore.collection(Constants.CN_BOOK_NAME).get()
             .addOnSuccessListener {
                 val data = it.toObjects(BookData::class.java)
                 trySend(Result.success(data))

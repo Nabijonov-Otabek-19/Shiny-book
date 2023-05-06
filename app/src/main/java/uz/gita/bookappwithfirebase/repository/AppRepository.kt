@@ -17,4 +17,6 @@ interface AppRepository {
 
     fun getRecommendedBooks(): Flow<Result<List<BookData>>>
 
+    fun getSavedBooks(): Flow<Result<List<BookData>>>
+
 }

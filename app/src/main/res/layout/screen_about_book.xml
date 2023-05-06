@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,7 +80,7 @@
                 android:gravity="center"
                 android:text="Book name"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -93,7 +94,7 @@
                 android:fontFamily="@font/architects_daughter"
                 android:text="Book author: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtName" />
@@ -106,7 +107,7 @@
                 android:fontFamily="@font/architects_daughter"
                 android:text="Pages: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtAuthor" />
@@ -120,7 +121,7 @@
                 android:fontFamily="@font/architects_daughter"
                 android:text="Year: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtPage" />
@@ -133,7 +134,7 @@
                 android:fontFamily="@font/architects_daughter"
                 android:text="Book genre: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtYear" />
