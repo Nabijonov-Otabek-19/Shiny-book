@@ -15,4 +15,6 @@ interface AppRepository {
 
     fun getFavouriteBooks(): Flow<Result<List<BookData>>>
 
+    fun getRecommendedBooks(): Flow<Result<List<BookData>>>
+
 }

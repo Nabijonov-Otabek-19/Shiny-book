@@ -1,14 +1,13 @@
 package uz.gita.bookappwithfirebase.utils
 
-import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 
-
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+fun Fragment.toasT(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), message, duration).show()
 }
 
-fun Any.logd(message: String) {
+fun logd(message: String) {
     Log.d("AAA", message)
 }

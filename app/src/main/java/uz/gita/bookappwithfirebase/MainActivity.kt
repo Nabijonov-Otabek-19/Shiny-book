@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import uz.gita.bookappwithfirebase.databinding.ActivityMainBinding
-import uz.gita.bookappwithfirebase.presentation.ui.screens.HomeScreen
 
 class MainActivity : AppCompatActivity() {
 

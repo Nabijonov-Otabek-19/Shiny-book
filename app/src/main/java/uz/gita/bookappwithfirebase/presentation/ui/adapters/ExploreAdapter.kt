@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.databinding.ItemRecommendBookBinding
+import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
 
-class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
+class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
 
     private var list: List<BookData> = ArrayList()
 
@@ -23,20 +23,19 @@ class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
         clickListener = l
     }
 
-    inner class ItemHolder(private val binding: ItemRecommendBookBinding) :
+    inner class ItemHolder(private val binding: ItemBookBinding) :
         ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
-                clickListener?.invoke(list[bindingAdapterPosition])
+                clickListener?.invoke(list[adapterPosition])
             }
         }
 
         fun bind() {
             binding.apply {
-                txtTitle.text = list[bindingAdapterPosition].name
-                txtAuthor.text = list[bindingAdapterPosition].author
-                Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
+                txtTitle.text = list[adapterPosition].name
+                Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)
                     .into(imgIcon)
             }
         }
@@ -44,7 +43,7 @@ class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            ItemRecommendBookBinding.inflate(
+            ItemBookBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

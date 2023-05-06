@@ -12,6 +12,7 @@ import com.github.barteksc.pdfviewer.listener.OnPageErrorListener
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenBookReadBinding
 import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
 
 class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener,
@@ -28,8 +29,8 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
         val bookData = args.bookData
         val file = File(requireContext().filesDir, bookData!!.name)
 
-        binding.apply {
-            pdfView.fromFile(file)
+        if (file.exists()) {
+            binding.pdfView.fromFile(file)
                 .enableSwipe(true)
                 .defaultPage(0)
                 .swipeHorizontal(true)
@@ -38,7 +39,11 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
                 .enableAntialiasing(true)
                 .spacing(0)
                 .load()
+        } else {
+            toasT("Book is not downloaded")
+        }
 
+        binding.apply {
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }

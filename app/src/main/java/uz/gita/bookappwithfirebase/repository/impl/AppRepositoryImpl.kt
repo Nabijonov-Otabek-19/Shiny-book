@@ -76,7 +76,17 @@ class AppRepositoryImpl : AppRepository {
         awaitClose()
     }
 
-    override fun getFavouriteBooks(): Flow<Result<List<BookData>>> = callbackFlow {
+    override fun getFavouriteBooks(): Flow<Result<List<BookData>>> = callbackFlow {}
 
+    override fun getRecommendedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
+        fireStore.collection(Constants.CN_BOOK_NAME).limit(2).get()
+            .addOnSuccessListener {
+                val data = it.toObjects(BookData::class.java)
+                trySend(Result.success(data))
+            }
+            .addOnFailureListener {
+                trySend(Result.failure(it))
+            }
+        awaitClose()
     }
 }

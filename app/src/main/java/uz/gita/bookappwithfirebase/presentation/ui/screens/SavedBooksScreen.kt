@@ -11,9 +11,4 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         super.onViewCreated(view, savedInstanceState)
 
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SavedBooksScreen()
-    }
 }
