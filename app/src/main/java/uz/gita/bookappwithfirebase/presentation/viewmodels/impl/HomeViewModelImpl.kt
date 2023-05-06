@@ -1,15 +1,17 @@
 package uz.gita.bookappwithfirebase.presentation.viewmodels.impl
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.presentation.viewmodels.HomeViewModel
 import uz.gita.bookappwithfirebase.repository.impl.AppRepositoryImpl
-import java.io.File
 
 class HomeViewModelImpl : HomeViewModel, ViewModel() {
 
@@ -19,7 +21,7 @@ class HomeViewModelImpl : HomeViewModel, ViewModel() {
     override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
 
-    val bookFilesData = MutableLiveData<List<File>>()
+    val bookUrlData = MutableLiveData<BookData>()
 
     init {
         getAllData()
@@ -37,11 +39,17 @@ class HomeViewModelImpl : HomeViewModel, ViewModel() {
                 bookList.onSuccess { booksData.value = it }
                 bookList.onFailure { errorData.value = it.message }
             }.launchIn(viewModelScope)
+    }
 
-//        repository.downloadFiles()
-//            .onEach { listFiles ->
-//                listFiles.onSuccess { bookFilesData.value = it }
-//                listFiles.onFailure { errorData.value = it.message }
-//            }.launchIn(viewModelScope)
+    fun downloadBookByUrl(context: Context, book: BookData): BookData {
+        var bookDa: BookData? = null
+        repository.downloadBookByUrl(context, book)
+            .onEach { bookData ->
+                bookData.onSuccess { bookUrlData.value = it
+                bookDa = it}
+                bookData.onFailure { errorData.value = it.message }
+            }.launchIn(viewModelScope)
+
+        return bookDa!!
     }
 }

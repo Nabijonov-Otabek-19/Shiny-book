@@ -81,6 +81,8 @@ dependencies {
     // PDF Viewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
+    implementation("com.pspdfkit:pspdfkit:8.7.1")
+
     // Android Runtime Permission Library
     implementation 'com.karumi:dexter:6.2.3'
 }

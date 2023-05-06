@@ -9,9 +9,21 @@
         android:id="@+id/homeScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.HomeScreen"
         android:label="HomeScreen"
-        tools:layout="@layout/screen_home">
+        tools:layout="@layout/screen_home"/>
+
+    <fragment
+        android:id="@+id/savedBooksScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.SavedBooksScreen"
+        android:label="SavedBooksScreen"
+        tools:layout="@layout/screen_saved" />
+
+    <fragment
+        android:id="@+id/exploreScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.ExploreScreen"
+        android:label="HomeScreen"
+        tools:layout="@layout/screen_explore" >
         <action
-            android:id="@+id/action_homeScreen_to_bookReadScreen"
+            android:id="@+id/action_exploreScreen_to_bookReadScreen"
             app:destination="@id/bookReadScreen" />
     </fragment>
 
@@ -26,4 +38,5 @@
             app:argType="uz.gita.bookappwithfirebase.data.common.BookData"
             app:nullable="true" />
     </fragment>
+
 </navigation>

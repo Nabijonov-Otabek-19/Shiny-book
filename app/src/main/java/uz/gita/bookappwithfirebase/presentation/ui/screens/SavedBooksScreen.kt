@@ -5,16 +5,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import uz.gita.bookappwithfirebase.R
 
-class HomeScreen: Fragment(R.layout.screen_home) {
+class SavedBooksScreen : Fragment(R.layout.screen_saved) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
     }
 
-
     companion object {
         @JvmStatic
-        fun newInstance() = HomeScreen()
+        fun newInstance() = SavedBooksScreen()
     }
 }

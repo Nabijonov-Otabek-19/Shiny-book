@@ -3,6 +3,7 @@ package uz.gita.bookappwithfirebase.presentation.ui.screens
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
@@ -25,18 +26,23 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
         super.onViewCreated(view, savedInstanceState)
 
         val bookData = args.bookData
-
         val file = File(requireContext().filesDir, bookData!!.name)
 
-        binding.pdfView.fromFile(file)
-            .enableSwipe(true)
-            .defaultPage(0)
-            .swipeHorizontal(true)
-            .enableDoubletap(true)
-            .scrollHandle(null)
-            .enableAntialiasing(true)
-            .spacing(0)
-            .load()
+        binding.apply {
+            pdfView.fromFile(file)
+                .enableSwipe(true)
+                .defaultPage(0)
+                .swipeHorizontal(true)
+                .enableDoubletap(true)
+                .scrollHandle(null)
+                .enableAntialiasing(true)
+                .spacing(0)
+                .load()
+
+            btnBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     override fun onPageChanged(page: Int, pageCount: Int) {

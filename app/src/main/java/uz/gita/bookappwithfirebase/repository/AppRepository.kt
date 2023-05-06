@@ -1,15 +1,17 @@
 package uz.gita.bookappwithfirebase.repository
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
-import java.io.File
 
 interface AppRepository {
 
-    fun getCategories(): Flow<Result<List<CategoryData>>>
+    fun getAllBooks(): Flow<Result<List<BookData>>>
 
-    fun getBooks(): Flow<Result<List<BookData>>>
+    fun downloadBookByUrl(context: Context, book: BookData): Flow<Result<BookData>>
+
+    fun getCategories(): Flow<Result<List<CategoryData>>>
 
     fun getFavouriteBooks(): Flow<Result<List<BookData>>>
 
