@@ -29,20 +29,20 @@ class HorizontalExploreAdapter : Adapter<HorizontalExploreAdapter.ItemHolder>() 
 
         init {
             binding.root.setOnClickListener {
-                clickListener?.invoke(list[bindingAdapterPosition])
+                clickListener?.invoke(list[adapterPosition])
             }
         }
 
         fun bind() {
             binding.apply {
-                txtTitle.text = list[bindingAdapterPosition].name
+                txtTitle.text = list[adapterPosition].name
 
-                val imgUrl = list[bindingAdapterPosition].bookCoverUrl
+                val imgUrl = list[adapterPosition].bookCoverUrl
 
                 if (imgUrl == "") {
                     imgIcon.setImageResource(R.drawable.icon_book)
                 } else {
-                    Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
+                    Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)
                         .into(imgIcon)
                 }
             }

@@ -30,7 +30,7 @@ class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
         private val innerAdapter = HorizontalExploreAdapter()
 
         fun bind() {
-            list[bindingAdapterPosition].apply {
+            list[adapterPosition].apply {
                 innerAdapter.setData(this.books)
                 binding.horizontalRv.adapter = innerAdapter
                 binding.horizontalRv.layoutManager =

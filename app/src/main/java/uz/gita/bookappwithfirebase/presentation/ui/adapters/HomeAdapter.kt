@@ -29,21 +29,21 @@ class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
 
         init {
             binding.root.setOnClickListener {
-                clickListener?.invoke(list[bindingAdapterPosition])
+                clickListener?.invoke(list[adapterPosition])
             }
         }
 
         fun bind() {
             binding.apply {
-                txtTitle.text = list[bindingAdapterPosition].name
-                txtAuthor.text = list[bindingAdapterPosition].author
+                txtTitle.text = list[adapterPosition].name
+                txtAuthor.text = list[adapterPosition].author
 
-                val imgUrl = list[bindingAdapterPosition].bookCoverUrl
+                val imgUrl = list[adapterPosition].bookCoverUrl
 
                 if (imgUrl == "") {
                     imgIcon.setImageResource(R.drawable.icon_book)
                 } else {
-                    Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
+                    Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)
                         .into(imgIcon)
                 }
             }
