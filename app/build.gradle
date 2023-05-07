@@ -68,16 +68,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
 
-    //Room database
-    implementation("androidx.room:room-runtime:2.5.1")
-    annotationProcessor("androidx.room:room-compiler:2.5.1")
-
-    // To use Kotlin annotation processing tool (kapt)
-    kapt("androidx.room:room-compiler:2.5.1")
-
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.1")
-
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
@@ -90,9 +80,4 @@ dependencies {
 
     // PDF Viewer
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
-
-    implementation("com.pspdfkit:pspdfkit:8.7.1")
-
-    // Android Runtime Permission Library
-    implementation 'com.karumi:dexter:6.2.3'
 }

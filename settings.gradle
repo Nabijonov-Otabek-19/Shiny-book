@@ -14,9 +14,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter()
-        maven {
-            url = uri("https://customers.pspdfkit.com/maven")
-        }
     }
 }
 rootProject.name = "Book app with Firebase"
