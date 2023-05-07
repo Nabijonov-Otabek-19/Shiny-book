@@ -34,6 +34,7 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         categoryList.add("Programming")
         categoryList.add("Psychology")
         categoryList.add("Motivation")
+        categoryList.add("English")
 
         viewModel.getBooksByCategory(categoryList)
 

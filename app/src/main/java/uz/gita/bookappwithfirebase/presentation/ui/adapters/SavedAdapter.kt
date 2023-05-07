@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.databinding.ItemSavedBookBinding
 
@@ -44,8 +45,15 @@ class SavedAdapter : Adapter<SavedAdapter.ItemHolder>() {
         fun bind() {
             binding.apply {
                 txtTitle.text = list[bindingAdapterPosition].name
-                Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
-                    .into(imgIcon)
+
+                val imgUrl = list[bindingAdapterPosition].bookCoverUrl
+
+                if (imgUrl == "") {
+                    imgIcon.setImageResource(R.drawable.icon_book)
+                } else {
+                    Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
+                        .into(imgIcon)
+                }
             }
         }
     }

@@ -39,7 +39,7 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/orange"
+            android:background="@drawable/title_bg"
             android:fontFamily="@font/architects_daughter"
             android:gravity="center"
             android:padding="4dp"
