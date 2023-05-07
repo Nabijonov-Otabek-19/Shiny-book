@@ -2,19 +2,20 @@ package uz.gita.bookappwithfirebase.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
+import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
+import uz.gita.bookappwithfirebase.databinding.VerticalItemBinding
 
 class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
 
-    private var list: List<BookData> = ArrayList()
+    private var list: List<AllBooksData> = ArrayList()
 
-    fun setData(l: List<BookData>) {
+    fun setData(l: List<AllBooksData>) {
         list = l
-        notifyItemRangeChanged(0, list.size)
+        notifyDataSetChanged()
     }
 
     private var clickListener: ((BookData) -> Unit)? = null
@@ -23,27 +24,30 @@ class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
         clickListener = l
     }
 
-    inner class ItemHolder(private val binding: ItemBookBinding) :
+    inner class ItemHolder(private val binding: VerticalItemBinding) :
         ViewHolder(binding.root) {
 
-        init {
-            binding.root.setOnClickListener {
-                clickListener?.invoke(list[bindingAdapterPosition])
-            }
-        }
+        private val innerAdapter = HorizontalExploreAdapter()
 
         fun bind() {
-            binding.apply {
-                txtTitle.text = list[bindingAdapterPosition].name
-                Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
-                    .into(imgIcon)
+            list[bindingAdapterPosition].apply {
+                innerAdapter.setData(this.books)
+                binding.horizontalRv.adapter = innerAdapter
+                binding.horizontalRv.layoutManager =
+                    LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+
+                binding.category.text = this.categoryName
+
+                innerAdapter.setClickListener {
+                    clickListener?.invoke(it)
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            ItemBookBinding.inflate(
+            VerticalItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

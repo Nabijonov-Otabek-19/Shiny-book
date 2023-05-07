@@ -44,6 +44,19 @@ class AppRepositoryImpl : AppRepository {
         awaitClose()
     }
 
+    fun getBooksByCategory(categoryName: String): Flow<Result<List<BookData>>> = callbackFlow {
+        fireStore.collection(Constants.CN_BOOK_NAME)
+            .whereEqualTo("genre", categoryName).get()
+            .addOnSuccessListener {
+                val data = it.toObjects(BookData::class.java)
+                trySend(Result.success(data))
+            }
+            .addOnFailureListener {
+                trySend(Result.failure(it))
+            }
+        awaitClose()
+    }
+
     override fun downloadBookByUrl(context: Context, book: BookData)
             : Flow<Result<BookData>> = callbackFlow {
         if (File(context.filesDir, book.name).exists()) {

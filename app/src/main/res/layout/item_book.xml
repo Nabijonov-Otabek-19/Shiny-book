@@ -33,6 +33,8 @@
             android:fontFamily="@font/architects_daughter"
             android:gravity="center"
             android:padding="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="Good to Great"
             android:textColor="@color/black"
             android:textSize="16sp"
