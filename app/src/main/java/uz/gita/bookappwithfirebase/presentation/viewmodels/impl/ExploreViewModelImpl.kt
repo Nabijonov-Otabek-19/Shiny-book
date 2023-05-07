@@ -1,6 +1,5 @@
 package uz.gita.bookappwithfirebase.presentation.viewmodels.impl
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,8 +18,6 @@ class ExploreViewModelImpl : ExploreViewModel, ViewModel() {
     override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
 
-    val bookUrlData = MutableLiveData<BookData>()
-
     init {
         getAllData()
     }
@@ -37,17 +34,5 @@ class ExploreViewModelImpl : ExploreViewModel, ViewModel() {
                 bookList.onSuccess { booksData.value = it }
                 bookList.onFailure { errorData.value = it.message }
             }.launchIn(viewModelScope)
-    }
-
-    fun downloadBookByUrl(context: Context, book: BookData): BookData {
-        var bookDa: BookData? = null
-        repository.downloadBookByUrl(context, book)
-            .onEach { bookData ->
-                bookData.onSuccess { bookUrlData.value = it
-                bookDa = it}
-                bookData.onFailure { errorData.value = it.message }
-            }.launchIn(viewModelScope)
-
-        return bookDa!!
     }
 }

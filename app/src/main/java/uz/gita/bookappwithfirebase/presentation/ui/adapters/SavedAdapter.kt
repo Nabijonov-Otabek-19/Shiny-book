@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
+import uz.gita.bookappwithfirebase.databinding.ItemSavedBookBinding
 
 class SavedAdapter : Adapter<SavedAdapter.ItemHolder>() {
 
@@ -14,21 +14,30 @@ class SavedAdapter : Adapter<SavedAdapter.ItemHolder>() {
 
     fun setData(l: List<BookData>) {
         list = l
-        notifyItemRangeChanged(0, list.size)
+        notifyDataSetChanged()
     }
 
     private var clickListener: ((BookData) -> Unit)? = null
+    private var deleteClickListener: ((BookData) -> Unit)? = null
 
     fun setClickListener(l: (BookData) -> Unit) {
         clickListener = l
     }
 
-    inner class ItemHolder(private val binding: ItemBookBinding) :
+    fun setDeleteClickListener(l: (BookData) -> Unit) {
+        deleteClickListener = l
+    }
+
+    inner class ItemHolder(private val binding: ItemSavedBookBinding) :
         ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
                 clickListener?.invoke(list[bindingAdapterPosition])
+            }
+
+            binding.btnDelete.setOnClickListener {
+                deleteClickListener?.invoke(list[bindingAdapterPosition])
             }
         }
 
@@ -43,7 +52,7 @@ class SavedAdapter : Adapter<SavedAdapter.ItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            ItemBookBinding.inflate(
+            ItemSavedBookBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

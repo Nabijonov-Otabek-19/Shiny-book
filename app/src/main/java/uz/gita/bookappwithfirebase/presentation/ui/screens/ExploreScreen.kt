@@ -24,10 +24,9 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter.setClickListener {
-            val data = viewModel.downloadBookByUrl(requireContext(), it)
             findNavController().navigate(
-                ExploreScreenDirections.actionExploreScreenToBookReadScreen(
-                    data
+                ExploreScreenDirections.actionExploreScreenToAboutBookScreen(
+                    it
                 )
             )
         }

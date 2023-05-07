@@ -30,7 +30,11 @@
         android:id="@+id/savedBooksScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.SavedBooksScreen"
         android:label="SavedBooksScreen"
-        tools:layout="@layout/screen_saved" />
+        tools:layout="@layout/screen_saved">
+        <action
+            android:id="@+id/action_savedBooksScreen_to_bookReadScreen"
+            app:destination="@id/bookReadScreen" />
+    </fragment>
 
     <fragment
         android:id="@+id/exploreScreen"
@@ -38,8 +42,8 @@
         android:label="HomeScreen"
         tools:layout="@layout/screen_explore">
         <action
-            android:id="@+id/action_exploreScreen_to_bookReadScreen"
-            app:destination="@id/bookReadScreen" />
+            android:id="@+id/action_exploreScreen_to_aboutBookScreen"
+            app:destination="@id/aboutBookScreen" />
     </fragment>
 
     <fragment

@@ -28,14 +28,14 @@ class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
 
         init {
             binding.root.setOnClickListener {
-                clickListener?.invoke(list[adapterPosition])
+                clickListener?.invoke(list[bindingAdapterPosition])
             }
         }
 
         fun bind() {
             binding.apply {
-                txtTitle.text = list[adapterPosition].name
-                Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)
+                txtTitle.text = list[bindingAdapterPosition].name
+                Glide.with(binding.root.context).load(list[bindingAdapterPosition].bookCoverUrl)
                     .into(imgIcon)
             }
         }

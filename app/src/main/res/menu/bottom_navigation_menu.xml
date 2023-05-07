@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/savedBooksScreen"
-        android:icon="@drawable/ic_saved"
+        android:icon="@drawable/saved"
         android:title="Saved" />
 
     <item

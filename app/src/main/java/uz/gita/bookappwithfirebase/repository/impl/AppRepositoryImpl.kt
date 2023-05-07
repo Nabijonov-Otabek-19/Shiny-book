@@ -77,8 +77,6 @@ class AppRepositoryImpl : AppRepository {
         awaitClose()
     }
 
-    override fun getFavouriteBooks(): Flow<Result<List<BookData>>> = callbackFlow {}
-
     override fun getRecommendedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
         fireStore.collection(Constants.CN_BOOK_NAME).get()
             .addOnSuccessListener {
@@ -107,11 +105,18 @@ class AppRepositoryImpl : AppRepository {
         awaitClose()
     }
 
-    override fun getSavedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
+    override fun getSavedBooks(context: Context): Flow<Result<List<BookData>>> = callbackFlow {
         fireStore.collection(Constants.CN_BOOK_NAME).get()
             .addOnSuccessListener {
-                val data = it.toObjects(BookData::class.java)
-                trySend(Result.success(data))
+                val list = ArrayList<BookData>()
+                it.forEach { data ->
+                    val book = File(context.filesDir, data.get("name").toString())
+                    if (book.exists()) {
+                        val temp = data.toObject(BookData::class.java)
+                        list.add(temp)
+                    }
+                }
+                trySend(Result.success(list))
             }
             .addOnFailureListener {
                 trySend(Result.failure(it))

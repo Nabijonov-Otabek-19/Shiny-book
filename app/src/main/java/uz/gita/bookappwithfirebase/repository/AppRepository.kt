@@ -13,10 +13,8 @@ interface AppRepository {
 
     fun getCategories(): Flow<Result<List<CategoryData>>>
 
-    fun getFavouriteBooks(): Flow<Result<List<BookData>>>
-
     fun getRecommendedBooks(): Flow<Result<List<BookData>>>
 
-    fun getSavedBooks(): Flow<Result<List<BookData>>>
+    fun getSavedBooks(context: Context): Flow<Result<List<BookData>>>
 
 }

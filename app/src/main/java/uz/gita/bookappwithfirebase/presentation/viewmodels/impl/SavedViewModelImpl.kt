@@ -1,5 +1,6 @@
 package uz.gita.bookappwithfirebase.presentation.viewmodels.impl
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,12 +17,9 @@ class SavedViewModelImpl : SavedViewModel, ViewModel() {
     override val booksData = MutableLiveData<List<BookData>>()
     override val errorData = MutableLiveData<String>()
 
-    init {
-        getAllData()
-    }
 
-    private fun getAllData() {
-        repository.getAllBooks()
+    fun getAllData(context: Context) {
+        repository.getSavedBooks(context)
             .onEach { bookList ->
                 bookList.onSuccess { booksData.value = it }
                 bookList.onFailure { errorData.value = it.message }
