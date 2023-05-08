@@ -72,14 +72,22 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
 
     override fun onPause() {
         super.onPause()
-        sharedPref.bookName = bookName
-        sharedPref.savedPage = pageNumber
-        sharedPref.totalPage = totalPage
+        if (pageNumber != 0) {
+            sharedPref.bookName = bookName
+            sharedPref.savedPage = pageNumber
+            sharedPref.totalPage = totalPage
+        } else if (pageNumber - 1 == totalPage) {
+            sharedPref.bookName = ""
+            sharedPref.savedPage = 0
+            sharedPref.totalPage = 0
+        }
     }
 
     override fun onPageChanged(page: Int, pageCount: Int) {
         pageNumber = page
         binding.txtPages.text = String.format("%s / %s", page + 1, pageCount)
+        logd("Page = $page")
+        logd("Total = $pageCount")
     }
 
 
