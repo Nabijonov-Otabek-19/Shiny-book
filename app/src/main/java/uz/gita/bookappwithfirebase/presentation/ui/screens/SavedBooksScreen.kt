@@ -29,7 +29,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         adapter.setClickListener {
             findNavController().navigate(
                 SavedBooksScreenDirections.actionSavedBooksScreenToBookReadScreen(
-                    it
+                    it.name, 0, it.page.toInt()
                 )
             )
         }
@@ -38,10 +38,9 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
             val file = File(requireContext().filesDir, it.name)
             val deleted = if (file.exists()) file.delete() else false
 
-            if (deleted){
+            if (deleted) {
                 toasT("Book deleted")
-            }
-            else logd("File not found")
+            } else logd("File not found")
             adapter.notifyDataSetChanged()
         }
 

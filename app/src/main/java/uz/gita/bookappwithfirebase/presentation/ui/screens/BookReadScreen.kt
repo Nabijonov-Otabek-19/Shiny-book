@@ -11,6 +11,7 @@ import com.github.barteksc.pdfviewer.listener.OnPageErrorListener
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
 import uz.gita.bookappwithfirebase.R
+import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenBookReadBinding
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
@@ -21,19 +22,25 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
 
     private val binding by viewBinding(ScreenBookReadBinding::bind)
     private val args by navArgs<BookReadScreenArgs>()
+    private val sharedPref by lazy { SharedPref.getInstance() }
 
+    private var bookName = ""
     private var pageNumber = 0
+    private var totalPage = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bookData = args.bookData
-        val file = File(requireContext().filesDir, bookData!!.name)
+        bookName = args.bookName
+        val savedPage = args.savedPage
+        totalPage = args.totalPage
+        pageNumber = savedPage
+        val file = File(requireContext().filesDir, bookName)
 
         if (file.exists()) {
             binding.pdfView.useBestQuality(true)
 
-            binding.txtPages.text = "1/${bookData.page}"
+            binding.txtPages.text = "$savedPage/$totalPage"
 
             binding.pdfView.fromFile(file)
                 .enableSwipe(true)
@@ -61,6 +68,13 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
                 findNavController().popBackStack()
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sharedPref.bookName = bookName
+        sharedPref.savedPage = pageNumber
+        sharedPref.totalPage = totalPage
     }
 
     override fun onPageChanged(page: Int, pageCount: Int) {

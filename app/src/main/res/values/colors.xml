@@ -8,4 +8,6 @@
     <color name="orange">#FF9800</color>
 
     <color name="background">#CDCDCD</color>
+    <color name="dark_blue">#17637E</color>
+    <color name="blue">#1B7695</color>
 </resources>

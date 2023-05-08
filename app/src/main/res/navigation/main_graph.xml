@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeScreen_to_aboutBookScreen"
             app:destination="@id/aboutBookScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_bookReadScreen"
+            app:destination="@id/bookReadScreen" />
     </fragment>
 
     <fragment
@@ -53,9 +56,14 @@
         tools:layout="@layout/screen_book_read">
 
         <argument
-            android:name="bookData"
-            app:argType="uz.gita.bookappwithfirebase.data.common.BookData"
-            app:nullable="true" />
+            android:name="bookName"
+            app:argType="string" />
+        <argument
+            android:name="savedPage"
+            app:argType="integer" />
+        <argument
+            android:name="totalPage"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
