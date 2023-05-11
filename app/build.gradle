@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // ViewBinding
-    implementation 'com.github.kirich1409:viewbindingpropertydelegate-full:1.5.8'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate-full:1.5.9'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'

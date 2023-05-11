@@ -13,6 +13,7 @@ class SharedPref {
         private const val BOOK_NAME = "book_name"
         private const val SAVED_PAGE = "saved_page"
         private const val TOTAL_PAGE = "total_page"
+        private const val PERCENTAGE = "percentage"
 
         private lateinit var pref: SharedPreferences
         private lateinit var editor: Editor
@@ -39,4 +40,8 @@ class SharedPref {
     var totalPage: Int
         set(value) = editor.putInt(TOTAL_PAGE, value).apply()
         get() = pref.getInt(TOTAL_PAGE, 0)
+
+    var percentage: Int
+        set(value) = editor.putInt(PERCENTAGE, value).apply()
+        get() = pref.getInt(PERCENTAGE, 0)
 }

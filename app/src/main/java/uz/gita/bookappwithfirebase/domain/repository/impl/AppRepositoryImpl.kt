@@ -1,4 +1,4 @@
-package uz.gita.bookappwithfirebase.repository.impl
+package uz.gita.bookappwithfirebase.domain.repository.impl
 
 import android.content.Context
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
-import uz.gita.bookappwithfirebase.repository.AppRepository
+import uz.gita.bookappwithfirebase.domain.repository.AppRepository
 import uz.gita.bookappwithfirebase.utils.Constants
 import uz.gita.bookappwithfirebase.utils.logd
 import java.io.File
@@ -21,7 +21,7 @@ class AppRepositoryImpl : AppRepository {
         private lateinit var repository: AppRepositoryImpl
 
         fun getInstance(): AppRepositoryImpl {
-            if (!(::repository.isInitialized)) {
+            if (!(Companion::repository.isInitialized)) {
                 repository = AppRepositoryImpl()
             }
             return repository

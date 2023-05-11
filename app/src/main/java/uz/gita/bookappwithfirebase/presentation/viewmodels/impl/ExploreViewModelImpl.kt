@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.presentation.viewmodels.ExploreViewModel
-import uz.gita.bookappwithfirebase.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
 
 class ExploreViewModelImpl : ExploreViewModel, ViewModel() {
 

@@ -72,24 +72,36 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
 
     override fun onPause() {
         super.onPause()
-        if (pageNumber != 0) {
+        if (pageNumber > 0 && pageNumber + 1 != totalPage) {
             sharedPref.bookName = bookName
             sharedPref.savedPage = pageNumber
             sharedPref.totalPage = totalPage
-        } else if (pageNumber == totalPage) {
+            val percentage: Double = ((pageNumber + 1).toDouble() / totalPage) * 100
+            logd("Percentage Int = ${percentage.toInt()}")
+            logd("PageNumber = $pageNumber")
+            logd("TotalPage = $totalPage")
+            logd("Equal = ${pageNumber + 1 == totalPage}")
+            sharedPref.percentage = percentage.toInt()
+
+        } else {
+            logd("Book is deleted from recent")
             sharedPref.bookName = ""
             sharedPref.savedPage = 0
             sharedPref.totalPage = 0
+            sharedPref.percentage = 0
+            logd(sharedPref.bookName)
         }
     }
 
     override fun onPageChanged(page: Int, pageCount: Int) {
         pageNumber = page
+        totalPage = pageCount
         binding.txtPages.text = String.format("%s / %s", page + 1, pageCount)
     }
 
 
     override fun onPageError(page: Int, t: Throwable?) {
         logd("Cannot load page = $page")
+        toasT("Cannot load page = $page")
     }
 }

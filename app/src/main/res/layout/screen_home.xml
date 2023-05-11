@@ -73,7 +73,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@id/txtBookName"
                 app:layout_constraintLeft_toRightOf="@id/icon"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/percentageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -90,8 +90,24 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/icon"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/percentageView"
                 app:layout_constraintTop_toBottomOf="@id/txt2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/percentageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_percent"
+                android:fontFamily="@font/architects_daughter"
+                android:gravity="center"
+                android:text="50%"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:textSize="40sp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

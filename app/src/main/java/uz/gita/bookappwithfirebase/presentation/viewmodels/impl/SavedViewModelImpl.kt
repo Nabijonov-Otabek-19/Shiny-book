@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.presentation.viewmodels.SavedViewModel
-import uz.gita.bookappwithfirebase.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
 
 class SavedViewModelImpl : SavedViewModel, ViewModel() {
 

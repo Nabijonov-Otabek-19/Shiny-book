@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenAboutBookBinding
-import uz.gita.bookappwithfirebase.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File

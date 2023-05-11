@@ -31,6 +31,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             binding.apply {
                 binding.view.visibility = View.VISIBLE
                 txtBookName.text = sharedPref.bookName
+                percentageView.text = "${sharedPref.percentage}%"
             }
         }
 

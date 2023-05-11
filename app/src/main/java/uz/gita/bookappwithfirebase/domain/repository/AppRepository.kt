@@ -1,4 +1,4 @@
-package uz.gita.bookappwithfirebase.repository
+package uz.gita.bookappwithfirebase.domain.repository
 
 import android.content.Context
 import kotlinx.coroutines.flow.Flow
