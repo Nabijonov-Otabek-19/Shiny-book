@@ -14,8 +14,10 @@ import uz.gita.bookappwithfirebase.domain.repository.AppRepository
 import uz.gita.bookappwithfirebase.utils.Constants
 import uz.gita.bookappwithfirebase.utils.logd
 import java.io.File
+import javax.inject.Inject
 
-class AppRepositoryImpl : AppRepository {
+
+class AppRepositoryImpl @Inject constructor() : AppRepository {
 
     companion object {
         private lateinit var repository: AppRepositoryImpl

@@ -8,8 +8,10 @@ import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
+import javax.inject.Inject
 
-class HorizontalExploreAdapter : Adapter<HorizontalExploreAdapter.ItemHolder>() {
+class HorizontalExploreAdapter @Inject constructor() :
+    Adapter<HorizontalExploreAdapter.ItemHolder>() {
 
     private var list: List<BookData> = ArrayList()
 

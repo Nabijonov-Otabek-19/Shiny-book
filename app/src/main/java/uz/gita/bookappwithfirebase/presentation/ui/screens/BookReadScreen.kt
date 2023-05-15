@@ -10,19 +10,23 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener
 import com.github.barteksc.pdfviewer.listener.OnPageErrorListener
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.github.barteksc.pdfviewer.util.FitPolicy
+import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenBookReadBinding
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener,
     OnPageErrorListener {
 
     private val binding by viewBinding(ScreenBookReadBinding::bind)
     private val args by navArgs<BookReadScreenArgs>()
-    private val sharedPref by lazy { SharedPref.getInstance() }
+
+    @Inject lateinit var sharedPref: SharedPref
 
     private var bookName = ""
     private var pageNumber = 0

@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenHomeBinding
@@ -14,13 +15,16 @@ import uz.gita.bookappwithfirebase.presentation.ui.adapters.HomeAdapter
 import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.HomeViewModelImpl
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.screen_home) {
 
     private val binding by viewBinding(ScreenHomeBinding::bind)
     private val viewModel by viewModels<HomeViewModelImpl>()
-    private val adapter by lazy { HomeAdapter() }
-    private val sharedPref by lazy { SharedPref.getInstance() }
+
+    @Inject lateinit var adapter : HomeAdapter
+    @Inject lateinit var sharedPref :SharedPref
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

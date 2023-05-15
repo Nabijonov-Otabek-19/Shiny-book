@@ -3,11 +3,16 @@ package uz.gita.bookappwithfirebase.data.source.local
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-class SharedPref {
+@Module
+@InstallIn(SingletonComponent::class)
+class SharedPref @Inject constructor() {
 
     companion object {
-        private lateinit var instance: SharedPref
 
         private const val SHARED_PREF = "shared_pref"
         private const val BOOK_NAME = "book_name"
@@ -21,12 +26,7 @@ class SharedPref {
         fun init(context: Context) {
             pref = context.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
             editor = pref.edit()
-
-            if (!(::instance.isInitialized))
-                instance = SharedPref()
         }
-
-        fun getInstance() = instance
     }
 
     var bookName: String

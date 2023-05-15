@@ -8,8 +8,9 @@ import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.databinding.ItemRecommendBookBinding
+import javax.inject.Inject
 
-class HomeAdapter : Adapter<HomeAdapter.ItemHolder>() {
+class HomeAdapter @Inject constructor() : Adapter<HomeAdapter.ItemHolder>() {
 
     private var list: List<BookData> = ArrayList()
 

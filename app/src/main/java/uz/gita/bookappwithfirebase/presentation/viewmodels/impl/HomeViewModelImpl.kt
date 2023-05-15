@@ -3,15 +3,18 @@ package uz.gita.bookappwithfirebase.presentation.viewmodels.impl
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.presentation.viewmodels.HomeViewModel
 import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
+import javax.inject.Inject
 
-class HomeViewModelImpl : HomeViewModel, ViewModel() {
-
-    private val repository = AppRepositoryImpl.getInstance()
+@HiltViewModel
+class HomeViewModelImpl @Inject constructor(
+    private val repository: AppRepositoryImpl
+) : HomeViewModel, ViewModel() {
 
     override val booksData = MutableLiveData<List<BookData>>()
     override val errorData = MutableLiveData<String>()

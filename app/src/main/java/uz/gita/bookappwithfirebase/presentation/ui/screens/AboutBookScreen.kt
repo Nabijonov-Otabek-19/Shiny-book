@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.R
@@ -16,13 +17,15 @@ import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AboutBookScreen : Fragment(R.layout.screen_about_book) {
 
     private val binding by viewBinding(ScreenAboutBookBinding::bind)
     private val args by navArgs<AboutBookScreenArgs>()
 
-    private val repository = AppRepositoryImpl.getInstance()
+    @Inject lateinit var repository : AppRepositoryImpl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

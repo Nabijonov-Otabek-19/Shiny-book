@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenSavedBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.SavedAdapter
@@ -14,12 +15,16 @@ import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.SavedViewModelIm
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SavedBooksScreen : Fragment(R.layout.screen_saved) {
 
     private val binding by viewBinding(ScreenSavedBinding::bind)
     private val viewModel by viewModels<SavedViewModelImpl>()
-    private val adapter by lazy { SavedAdapter() }
+
+    @Inject
+    lateinit var adapter: SavedAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

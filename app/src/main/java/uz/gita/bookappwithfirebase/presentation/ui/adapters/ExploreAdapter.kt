@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.databinding.VerticalItemBinding
+import javax.inject.Inject
 
-class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
+class ExploreAdapter @Inject constructor() : Adapter<ExploreAdapter.ItemHolder>() {
+
+    @Inject
+    lateinit var innerAdapter: HorizontalExploreAdapter
 
     private var list: List<AllBooksData> = ArrayList()
 
@@ -26,8 +30,6 @@ class ExploreAdapter : Adapter<ExploreAdapter.ItemHolder>() {
 
     inner class ItemHolder(private val binding: VerticalItemBinding) :
         ViewHolder(binding.root) {
-
-        private val innerAdapter = HorizontalExploreAdapter()
 
         fun bind() {
             list[adapterPosition].apply {
