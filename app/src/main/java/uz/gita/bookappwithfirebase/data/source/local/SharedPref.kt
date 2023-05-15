@@ -3,13 +3,10 @@ package uz.gita.bookappwithfirebase.data.source.local
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
+@Singleton
 class SharedPref @Inject constructor() {
 
     companion object {
