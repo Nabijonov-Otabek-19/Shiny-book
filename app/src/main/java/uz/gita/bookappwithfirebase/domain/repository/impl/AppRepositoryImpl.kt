@@ -19,17 +19,6 @@ import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor() : AppRepository {
 
-    companion object {
-        private lateinit var repository: AppRepositoryImpl
-
-        fun getInstance(): AppRepositoryImpl {
-            if (!(Companion::repository.isInitialized)) {
-                repository = AppRepositoryImpl()
-            }
-            return repository
-        }
-    }
-
     private val fireStore = Firebase.firestore
     private val storage = FirebaseStorage.getInstance()
 
