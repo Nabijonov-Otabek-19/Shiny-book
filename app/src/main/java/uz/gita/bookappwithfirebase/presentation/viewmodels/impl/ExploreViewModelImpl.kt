@@ -39,7 +39,6 @@ class ExploreViewModelImpl @Inject constructor(
         }
     }
 
-
     private fun getAllData() {
         repository.getCategories()
             .onEach { categoryList ->

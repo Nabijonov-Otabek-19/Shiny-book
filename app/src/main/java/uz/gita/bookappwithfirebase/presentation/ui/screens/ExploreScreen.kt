@@ -13,6 +13,7 @@ import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenExploreBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.ExploreAdapter
 import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.ExploreViewModelImpl
+import uz.gita.bookappwithfirebase.utils.Constants
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +23,12 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
     private val viewModel by viewModels<ExploreViewModelImpl>()
 
     @Inject lateinit var adapter :ExploreAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getBooksByCategory(Constants.categoryList)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,14 +40,6 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
                 )
             )
         }
-
-        val categoryList = ArrayList<String>()
-        categoryList.add("Programming")
-        categoryList.add("Psychology")
-        categoryList.add("Motivation")
-        categoryList.add("English")
-
-        viewModel.getBooksByCategory(categoryList)
 
         viewModel.booksData.observe(viewLifecycleOwner) {
             adapter.setData(it)
