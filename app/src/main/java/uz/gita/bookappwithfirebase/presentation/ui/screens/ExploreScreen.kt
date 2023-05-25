@@ -14,6 +14,7 @@ import uz.gita.bookappwithfirebase.databinding.ScreenExploreBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.ExploreAdapter
 import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.ExploreViewModelImpl
 import uz.gita.bookappwithfirebase.utils.Constants
+import uz.gita.bookappwithfirebase.utils.logd
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,13 +43,13 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {
+            logd("Explore screen = $it")
             adapter.setData(it)
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
-
 
         viewModel.categoriesData.observe(viewLifecycleOwner) {
 

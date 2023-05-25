@@ -25,6 +25,7 @@ class ExploreViewModelImpl @Inject constructor(
         getAllData()
     }
 
+
     fun getBooksByCategory(categoryNameList: List<String>) {
         val list = ArrayList<AllBooksData>()
         for (index in categoryNameList.indices) {
@@ -34,7 +35,7 @@ class ExploreViewModelImpl @Inject constructor(
                         list.add(AllBooksData(categoryNameList[index], it))
                         booksData.value = list
                     }
-                    result.onFailure { }
+                    result.onFailure { errorData.value = it.message }
                 }.launchIn(viewModelScope)
         }
     }

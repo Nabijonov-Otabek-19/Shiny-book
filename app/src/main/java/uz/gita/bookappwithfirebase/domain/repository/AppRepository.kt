@@ -17,4 +17,5 @@ interface AppRepository {
 
     fun getSavedBooks(context: Context): Flow<Result<List<BookData>>>
 
+    fun getBooksByCategory(categoryName: String): Flow<Result<List<BookData>>>
 }

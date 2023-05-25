@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class ExploreAdapter @Inject constructor() : Adapter<ExploreAdapter.ItemHolder>() {
 
-    @Inject
-    lateinit var innerAdapter: HorizontalExploreAdapter
-
     private var list: List<AllBooksData> = ArrayList()
+
+//    @Inject
+//    lateinit var innerAdapter: HorizontalExploreAdapter
 
     fun setData(l: List<AllBooksData>) {
         list = l
@@ -31,18 +31,17 @@ class ExploreAdapter @Inject constructor() : Adapter<ExploreAdapter.ItemHolder>(
     inner class ItemHolder(private val binding: VerticalItemBinding) :
         ViewHolder(binding.root) {
 
-        fun bind() {
-            list[adapterPosition].apply {
-                innerAdapter.setData(this.books)
-                binding.horizontalRv.adapter = innerAdapter
-                binding.horizontalRv.layoutManager =
-                    LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
+        fun bind(data: AllBooksData) = with(binding) {
+            val innerAdapter = HorizontalExploreAdapter()
+            innerAdapter.setData(data.books)
+            horizontalRv.adapter = innerAdapter
+            horizontalRv.layoutManager =
+                LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
 
-                binding.category.text = this.categoryName
+            binding.category.text = data.categoryName
 
-                innerAdapter.setClickListener {
-                    clickListener?.invoke(it)
-                }
+            innerAdapter.setClickListener {
+                clickListener?.invoke(it)
             }
         }
     }
@@ -60,6 +59,6 @@ class ExploreAdapter @Inject constructor() : Adapter<ExploreAdapter.ItemHolder>(
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind()
+        holder.bind(list[position])
     }
 }

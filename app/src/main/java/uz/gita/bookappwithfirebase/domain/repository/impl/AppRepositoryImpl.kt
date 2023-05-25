@@ -16,7 +16,6 @@ import uz.gita.bookappwithfirebase.utils.logd
 import java.io.File
 import javax.inject.Inject
 
-
 class AppRepositoryImpl @Inject constructor() : AppRepository {
 
     private val fireStore = Firebase.firestore
@@ -35,7 +34,7 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
         awaitClose()
     }
 
-    fun getBooksByCategory(categoryName: String): Flow<Result<List<BookData>>> = callbackFlow {
+    override fun getBooksByCategory(categoryName: String): Flow<Result<List<BookData>>> = callbackFlow {
         fireStore.collection(Constants.CN_BOOK_NAME)
             .whereEqualTo("genre", categoryName).get()
             .addOnSuccessListener {
