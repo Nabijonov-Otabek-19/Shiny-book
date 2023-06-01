@@ -1,10 +1,10 @@
-package uz.gita.bookappwithfirebase.presentation.ui.screens
+package uz.gita.bookappwithfirebase.presentation.ui.screens.about
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -23,6 +23,7 @@ import javax.inject.Inject
 class AboutBookScreen : Fragment(R.layout.screen_about_book) {
 
     private val binding by viewBinding(ScreenAboutBookBinding::bind)
+    private val viewModel by viewModels<AboutBookViewModelImpl>()
     private val args by navArgs<AboutBookScreenArgs>()
 
     @Inject lateinit var repository : AppRepositoryImpl
@@ -52,7 +53,7 @@ class AboutBookScreen : Fragment(R.layout.screen_about_book) {
             }
 
             btnBack.setOnClickListener {
-                findNavController().popBackStack()
+                viewModel.popBackStack()
             }
 
             btnDownload.setOnClickListener {

@@ -1,17 +1,15 @@
-package uz.gita.bookappwithfirebase.presentation.ui.screens
+package uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenSavedBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.SavedAdapter
-import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.SavedViewModelImpl
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
@@ -32,11 +30,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         viewModel.getAllData(requireContext())
 
         adapter.setClickListener {
-            findNavController().navigate(
-                SavedBooksScreenDirections.actionSavedBooksScreenToBookReadScreen(
-                    it.name, 0, it.page.toInt()
-                )
-            )
+            viewModel.navigateToReadBookScreen(it.name, 0, it.page.toInt())
         }
 
         adapter.setDeleteClickListener {

@@ -1,9 +1,9 @@
-package uz.gita.bookappwithfirebase.presentation.ui.screens
+package uz.gita.bookappwithfirebase.presentation.ui.screens.bookread
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener
@@ -24,6 +24,7 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
     OnPageErrorListener {
 
     private val binding by viewBinding(ScreenBookReadBinding::bind)
+    private val viewModel by viewModels<BookReadViewModelImpl>()
     private val args by navArgs<BookReadScreenArgs>()
 
     @Inject lateinit var sharedPref: SharedPref
@@ -69,7 +70,7 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
 
         binding.apply {
             btnBack.setOnClickListener {
-                findNavController().popBackStack()
+                viewModel.popBackStack()
             }
         }
     }
@@ -81,10 +82,6 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
             sharedPref.savedPage = pageNumber
             sharedPref.totalPage = totalPage
             val percentage: Double = ((pageNumber + 1).toDouble() / totalPage) * 100
-            logd("Percentage Int = ${percentage.toInt()}")
-            logd("PageNumber = $pageNumber")
-            logd("TotalPage = $totalPage")
-            logd("Equal = ${pageNumber + 1 == totalPage}")
             sharedPref.percentage = percentage.toInt()
 
         } else {
@@ -103,9 +100,7 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
         binding.txtPages.text = String.format("%s / %s", page + 1, pageCount)
     }
 
-
     override fun onPageError(page: Int, t: Throwable?) {
-        logd("Cannot load page = $page")
         toasT("Cannot load page = $page")
     }
 }

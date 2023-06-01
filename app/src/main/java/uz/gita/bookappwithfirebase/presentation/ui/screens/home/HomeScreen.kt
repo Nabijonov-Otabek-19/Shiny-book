@@ -1,10 +1,9 @@
-package uz.gita.bookappwithfirebase.presentation.ui.screens
+package uz.gita.bookappwithfirebase.presentation.ui.screens.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,7 +11,6 @@ import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenHomeBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.HomeAdapter
-import uz.gita.bookappwithfirebase.presentation.viewmodels.impl.HomeViewModelImpl
 import uz.gita.bookappwithfirebase.utils.logd
 import uz.gita.bookappwithfirebase.utils.toasT
 import javax.inject.Inject
@@ -23,8 +21,11 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val binding by viewBinding(ScreenHomeBinding::bind)
     private val viewModel by viewModels<HomeViewModelImpl>()
 
-    @Inject lateinit var adapter : HomeAdapter
-    @Inject lateinit var sharedPref :SharedPref
+    @Inject
+    lateinit var adapter: HomeAdapter
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,13 +42,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         binding.apply {
             btnLastBook.setOnClickListener {
-                findNavController().navigate(
-                    HomeScreenDirections
-                        .actionHomeScreenToBookReadScreen(
-                            sharedPref.bookName,
-                            sharedPref.savedPage,
-                            sharedPref.totalPage
-                        )
+                viewModel.navigateToReadBookScreen(
+                    sharedPref.bookName,
+                    sharedPref.savedPage,
+                    sharedPref.totalPage
                 )
             }
 
@@ -57,7 +55,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
 
         adapter.setClickListener {
-            findNavController().navigate(HomeScreenDirections.actionHomeScreenToAboutBookScreen(it))
+            viewModel.navigateToAboutScreen(it)
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {

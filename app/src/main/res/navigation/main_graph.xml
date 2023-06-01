@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.HomeScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeScreen"
         android:label="HomeScreen"
         tools:layout="@layout/screen_home">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/aboutBookScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.AboutBookScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.about.AboutBookScreen"
         android:label="AboutBookScreen"
         tools:layout="@layout/screen_about_book">
         <argument
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/savedBooksScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.SavedBooksScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBooksScreen"
         android:label="SavedBooksScreen"
         tools:layout="@layout/screen_saved">
         <action
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/exploreScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.ExploreScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.explore.ExploreScreen"
         android:label="HomeScreen"
         tools:layout="@layout/screen_explore">
         <action
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/bookReadScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.BookReadScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.bookread.BookReadScreen"
         android:label="BookReadScreen"
         tools:layout="@layout/screen_book_read">
 
