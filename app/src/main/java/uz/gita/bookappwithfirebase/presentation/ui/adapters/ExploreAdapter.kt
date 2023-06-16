@@ -14,9 +14,6 @@ class ExploreAdapter @Inject constructor() : Adapter<ExploreAdapter.ItemHolder>(
 
     private var list: List<AllBooksData> = ArrayList()
 
-//    @Inject
-//    lateinit var innerAdapter: HorizontalExploreAdapter
-
     fun setData(l: List<AllBooksData>) {
         list = l
         notifyDataSetChanged()
