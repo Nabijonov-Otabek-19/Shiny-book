@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import uz.gita.bookappwithfirebase.domain.repository.AppRepository
-import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Singleton
 
 @Module

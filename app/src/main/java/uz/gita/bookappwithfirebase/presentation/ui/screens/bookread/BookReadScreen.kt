@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenBookReadBinding
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.logger
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
 import javax.inject.Inject
@@ -85,12 +85,12 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
             sharedPref.percentage = percentage.toInt()
 
         } else {
-            logd("Book is deleted from recent")
+            logger("Book is deleted from recent")
             sharedPref.bookName = ""
             sharedPref.savedPage = 0
             sharedPref.totalPage = 0
             sharedPref.percentage = 0
-            logd(sharedPref.bookName)
+            logger(sharedPref.bookName)
         }
     }
 

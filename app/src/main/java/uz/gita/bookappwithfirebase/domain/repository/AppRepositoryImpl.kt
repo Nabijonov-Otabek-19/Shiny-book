@@ -1,18 +1,19 @@
-package uz.gita.bookappwithfirebase.domain.repository.impl
+package uz.gita.bookappwithfirebase.domain.repository
 
 import android.content.Context
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
-import uz.gita.bookappwithfirebase.domain.repository.AppRepository
 import uz.gita.bookappwithfirebase.utils.Constants
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.logger
 import java.io.File
 import javax.inject.Inject
 
@@ -22,28 +23,28 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
     private val storage = FirebaseStorage.getInstance()
 
 
-    override fun getAllBooks(): Flow<Result<List<BookData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_BOOK_NAME).get()
-            .addOnSuccessListener {
-                val data = it.toObjects(BookData::class.java)
-                trySend(Result.success(data))
-            }
-            .addOnFailureListener {
-                trySend(Result.failure(it))
-            }
-        awaitClose()
-    }
+    override fun getBookProducts(): Flow<Result<List<AllBooksData>>> = callbackFlow {
+        fireStore.collection("bookProducts").get()
+            .addOnSuccessListener { query ->
 
-    override fun getBooksByCategory(categoryName: String): Flow<Result<List<BookData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_BOOK_NAME)
-            .whereEqualTo("genre", categoryName).get()
-            .addOnSuccessListener {
-                val data = it.toObjects(BookData::class.java)
-                trySend(Result.success(data))
+                val list = arrayListOf<AllBooksData>()
+                query.forEach { data ->
+                    val categoryName = data.get("category").toString()
+
+                    data.reference.collection("bookList").get()
+                        .addOnSuccessListener { subQuery ->
+
+                            val subList = arrayListOf<BookData>()
+                            subQuery.forEach { bookData ->
+                                subList.add(bookData.toObject() as BookData)
+                            }
+                            list.add(AllBooksData(categoryName, subList))
+                            trySend(Result.success(list))
+                        }
+                        .addOnFailureListener { trySend(Result.failure(it)) }
+                }
             }
-            .addOnFailureListener {
-                trySend(Result.failure(it))
-            }
+            .addOnFailureListener { trySend(Result.failure(it)) }
         awaitClose()
     }
 
@@ -61,7 +62,7 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
 
                 .addOnProgressListener {
                     val progress = it.bytesTransferred * 100 / it.totalByteCount
-                    logd("progress = $progress")
+                    logger("progress = $progress")
                 }
         }
         awaitClose()
@@ -73,10 +74,7 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
                 val data = it.toObjects(CategoryData::class.java)
                 trySend(Result.success(data))
             }
-            .addOnFailureListener {
-                logd("Category fail = $it")
-                trySend(Result.failure(it))
-            }
+            .addOnFailureListener { trySend(Result.failure(it)) }
         awaitClose()
     }
 

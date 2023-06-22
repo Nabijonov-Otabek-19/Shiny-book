@@ -11,8 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenExploreBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.ExploreAdapter
-import uz.gita.bookappwithfirebase.utils.Constants
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.logger
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,11 +23,6 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
     @Inject
     lateinit var adapter: ExploreAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel.getBooksByCategory(Constants.categoryList)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,12 +32,12 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {
-            logd("Explore screen = $it")
             adapter.setData(it)
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            logger("Explore screen error = $it")
         }
 
         viewModel.categoriesData.observe(viewLifecycleOwner) {

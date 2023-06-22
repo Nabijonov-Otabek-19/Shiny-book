@@ -12,4 +12,7 @@ interface ExploreViewModel {
     val errorData: LiveData<String>
 
     fun navigateToAboutBookScreen(bookData: BookData)
+
+    fun getAllBooks()
+    fun getAllCategories()
 }

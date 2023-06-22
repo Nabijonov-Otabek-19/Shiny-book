@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenSavedBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.SavedAdapter
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.logger
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
 import javax.inject.Inject
@@ -39,7 +39,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
 
             if (deleted) {
                 toasT("Book deleted")
-            } else logd("File not found")
+            } else logger("File not found")
             adapter.notifyDataSetChanged()
         }
 
@@ -64,7 +64,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         }
 
         viewModel.errorData.observe(viewLifecycleOwner) {
-            logd("SavedScreen error = $it")
+            logger("SavedScreen error = $it")
         }
     }
 }

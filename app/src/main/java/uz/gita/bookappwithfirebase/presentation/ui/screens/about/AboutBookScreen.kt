@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenAboutBookBinding
-import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.utils.logger
 import uz.gita.bookappwithfirebase.utils.toasT
 import java.io.File
 import javax.inject.Inject
@@ -63,7 +63,7 @@ class AboutBookScreen : Fragment(R.layout.screen_about_book) {
                             toasT("Book saved")
                         }
                         data.onFailure { e ->
-                            logd("AboutBookScreen error = ${e.message}")
+                            logger("AboutBookScreen error = ${e.message}")
                         }
                     }.launchIn(lifecycleScope)
                 btnDownload.setImageResource(R.drawable.ic_saved)

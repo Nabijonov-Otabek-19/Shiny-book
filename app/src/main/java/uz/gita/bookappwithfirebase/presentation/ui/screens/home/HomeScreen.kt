@@ -11,7 +11,7 @@ import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenHomeBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.HomeAdapter
-import uz.gita.bookappwithfirebase.utils.logd
+import uz.gita.bookappwithfirebase.utils.logger
 import uz.gita.bookappwithfirebase.utils.toasT
 import javax.inject.Inject
 
@@ -64,7 +64,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         viewModel.errorData.observe(viewLifecycleOwner) {
             toasT(it)
-            logd("HomeScreen Error = $it")
+            logger("HomeScreen Error = $it")
         }
     }
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
 import uz.gita.bookappwithfirebase.data.common.CategoryData
-import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,25 +30,19 @@ class ExploreViewModelImpl @Inject constructor(
     }
 
     init {
-        getAllData()
+        getAllCategories()
+        getAllBooks()
+    }
+
+    override fun getAllBooks() {
+        repository.getBookProducts().onEach { result ->
+            result.onSuccess { booksData.value = it }
+            result.onFailure { errorData.value = it.message }
+        }.launchIn(viewModelScope)
     }
 
 
-    fun getBooksByCategory(categoryNameList: List<String>) {
-        val list = ArrayList<AllBooksData>()
-        for (index in categoryNameList.indices) {
-            repository.getBooksByCategory(categoryNameList[index])
-                .onEach { result ->
-                    result.onSuccess {
-                        list.add(AllBooksData(categoryNameList[index], it))
-                        booksData.value = list
-                    }
-                    result.onFailure { errorData.value = it.message }
-                }.launchIn(viewModelScope)
-        }
-    }
-
-    private fun getAllData() {
+    override fun getAllCategories() {
         repository.getCategories()
             .onEach { categoryList ->
                 categoryList.onSuccess { categoriesData.value = it }

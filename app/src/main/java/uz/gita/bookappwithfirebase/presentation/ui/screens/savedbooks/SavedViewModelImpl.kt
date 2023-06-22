@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.domain.repository.impl.AppRepositoryImpl
+import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Inject
 
 @HiltViewModel
