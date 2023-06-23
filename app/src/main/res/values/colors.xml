@@ -7,7 +7,8 @@
     <color name="light_gray">#758283</color>
     <color name="orange">#FF9800</color>
 
-    <color name="background">#CDCDCD</color>
+    <!-- #CDCDCD -->
+    <color name="background">#FFFFFF</color>
     <color name="dark_blue">#17637E</color>
     <color name="blue">#1B7695</color>
 </resources>
