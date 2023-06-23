@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:layout_marginVertical="8dp"
     android:orientation="vertical">
 
     <TextView
@@ -10,7 +12,6 @@
         android:layout_height="30dp"
         android:fontFamily="@font/amarante"
         android:gravity="center_vertical"
-        android:paddingStart="16dp"
         android:text="SubCategory #1"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -19,6 +20,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/horizontal_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
