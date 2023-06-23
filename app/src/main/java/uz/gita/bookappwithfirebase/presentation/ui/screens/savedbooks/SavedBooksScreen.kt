@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
+import uz.gita.bookappwithfirebase.data.source.local.SharedPref
 import uz.gita.bookappwithfirebase.databinding.ScreenSavedBinding
 import uz.gita.bookappwithfirebase.presentation.ui.adapters.SavedAdapter
 import uz.gita.bookappwithfirebase.utils.logger
@@ -24,6 +25,8 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
     @Inject
     lateinit var adapter: SavedAdapter
 
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,16 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (sharedPref.bookName.isEmpty()) {
+            binding.view.visibility = View.GONE
+        } else {
+            binding.apply {
+                binding.view.visibility = View.VISIBLE
+                txtBookName.text = sharedPref.bookName
+                percentageView.text = "${sharedPref.percentage}%"
+            }
+        }
 
         adapter.setClickListener {
             viewModel.navigateToReadBookScreen(it.name, 0, it.page.toInt())
@@ -54,6 +67,15 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         binding.apply {
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = adapter
+
+            // Last Read book
+            btnLastBook.setOnClickListener {
+                viewModel.navigateToReadBookScreen(
+                    sharedPref.bookName,
+                    sharedPref.savedPage,
+                    sharedPref.totalPage
+                )
+            }
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {
