@@ -43,7 +43,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
                 toasT("File not found")
                 logger("File not found")
             }
-            adapter.notifyDataSetChanged()
+            viewModel.getAllData(requireContext())
         }
 
         binding.apply {

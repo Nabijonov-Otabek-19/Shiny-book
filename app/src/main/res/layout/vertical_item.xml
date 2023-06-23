@@ -8,7 +8,7 @@
         android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:fontFamily="@font/architects_daughter"
+        android:fontFamily="@font/amarante"
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:text="SubCategory #1"

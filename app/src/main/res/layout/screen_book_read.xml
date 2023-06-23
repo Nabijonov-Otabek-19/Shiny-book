@@ -29,7 +29,7 @@
             android:id="@+id/txtPages"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="@font/architects_daughter"
+            android:fontFamily="@font/amarante"
             android:gravity="center"
             android:padding="12dp"
             android:text="100/1000"
