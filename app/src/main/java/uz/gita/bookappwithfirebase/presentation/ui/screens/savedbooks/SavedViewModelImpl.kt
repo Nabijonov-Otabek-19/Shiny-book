@@ -29,10 +29,9 @@ class SavedViewModelImpl @Inject constructor(
 
 
     fun getAllData(context: Context) {
-        repository.getSavedBooks(context)
-            .onEach { bookList ->
-                bookList.onSuccess { booksData.value = it }
-                bookList.onFailure { errorData.value = it.message }
-            }.launchIn(viewModelScope)
+        repository.getSavedBookProducts(context).onEach { result ->
+            result.onSuccess { booksData.value = it }
+            result.onFailure { errorData.value = it.message }
+        }.launchIn(viewModelScope)
     }
 }

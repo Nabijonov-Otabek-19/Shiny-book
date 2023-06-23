@@ -8,13 +8,4 @@ object Constants {
 
     // SG means Storage
     const val SG_FILE_PATH = "books/"
-
-    val categoryList = ArrayList<String>()
-
-    init {
-        categoryList.add("Programming")
-        categoryList.add("Psychology")
-        categoryList.add("Motivation")
-        categoryList.add("English")
-    }
 }

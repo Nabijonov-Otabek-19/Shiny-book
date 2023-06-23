@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
@@ -39,12 +39,15 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
 
             if (deleted) {
                 toasT("Book deleted")
-            } else logger("File not found")
+            } else {
+                toasT("File not found")
+                logger("File not found")
+            }
             adapter.notifyDataSetChanged()
         }
 
         binding.apply {
-            recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = adapter
         }
 

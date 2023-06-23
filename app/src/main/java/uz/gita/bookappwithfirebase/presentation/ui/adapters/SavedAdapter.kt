@@ -1,5 +1,6 @@
 package uz.gita.bookappwithfirebase.presentation.ui.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -46,10 +47,11 @@ class SavedAdapter @Inject constructor() : Adapter<SavedAdapter.ItemHolder>() {
         fun bind() {
             binding.apply {
                 txtTitle.text = list[adapterPosition].name
+                txtAuthor.text = list[adapterPosition].author
 
                 val imgUrl = list[adapterPosition].bookCoverUrl
 
-                if (imgUrl == "") {
+                if (imgUrl.isEmpty()) {
                     imgIcon.setImageResource(R.drawable.icon_book)
                 } else {
                     Glide.with(binding.root.context).load(list[adapterPosition].bookCoverUrl)

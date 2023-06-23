@@ -12,9 +12,9 @@ interface AppRepository {
 
     fun downloadBookByUrl(context: Context, book: BookData): Flow<Result<BookData>>
 
+    fun getSavedBookProducts(context: Context): Flow<Result<List<BookData>>>
+
     fun getCategories(): Flow<Result<List<CategoryData>>>
 
     fun getRecommendedBooks(): Flow<Result<List<BookData>>>
-
-    fun getSavedBooks(context: Context): Flow<Result<List<BookData>>>
 }

@@ -50,6 +50,7 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
 
     override fun downloadBookByUrl(context: Context, book: BookData)
             : Flow<Result<BookData>> = callbackFlow {
+
         if (File(context.filesDir, book.name).exists()) {
             trySend(Result.success(book))
 
@@ -106,22 +107,30 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
         awaitClose()
     }
 
-    override fun getSavedBooks(context: Context): Flow<Result<List<BookData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_BOOK_NAME).get()
-            .addOnSuccessListener {
-                val list = ArrayList<BookData>()
-                it.forEach { data ->
-                    val book = File(context.filesDir, data.get("name").toString())
-                    if (book.exists()) {
-                        val temp = data.toObject(BookData::class.java)
-                        list.add(temp)
+    override fun getSavedBookProducts(context: Context):
+            Flow<Result<List<BookData>>> = callbackFlow {
+
+            fireStore.collection("bookProducts").get()
+                .addOnSuccessListener { query ->
+
+                    val list = arrayListOf<BookData>()
+                    query.forEach { data ->
+                        data.reference.collection("bookList").get()
+                            .addOnSuccessListener { subQuery ->
+                                subQuery.forEach { bookData ->
+                                    val book =
+                                        File(context.filesDir, bookData.get("name").toString())
+                                    if (book.exists()) {
+                                        val temp = bookData.toObject(BookData::class.java)
+                                        list.add(temp)
+                                        trySend(Result.success(list))
+                                    }
+                                }
+                            }
+                            .addOnFailureListener { trySend(Result.failure(it)) }
                     }
                 }
-                trySend(Result.success(list))
-            }
-            .addOnFailureListener {
-                trySend(Result.failure(it))
-            }
-        awaitClose()
-    }
+                .addOnFailureListener { trySend(Result.failure(it)) }
+            awaitClose()
+        }
 }
