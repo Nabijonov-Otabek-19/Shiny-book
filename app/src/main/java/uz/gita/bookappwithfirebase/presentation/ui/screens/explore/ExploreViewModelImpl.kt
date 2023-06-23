@@ -22,6 +22,7 @@ class ExploreViewModelImpl @Inject constructor(
     override val booksData = MutableLiveData<List<AllBooksData>>()
     override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
+    override val loadingData = MutableLiveData<Boolean>()
 
     override fun navigateToAboutBookScreen(bookData: BookData) {
         viewModelScope.launch {
@@ -35,9 +36,16 @@ class ExploreViewModelImpl @Inject constructor(
     }
 
     override fun getAllBooks() {
+        loadingData.value = true
         repository.getBookProducts().onEach { result ->
-            result.onSuccess { booksData.value = it }
-            result.onFailure { errorData.value = it.message }
+            result.onSuccess {
+                loadingData.value = false
+                booksData.value = it
+            }
+            result.onFailure {
+                loadingData.value = false
+                errorData.value = it.message
+            }
         }.launchIn(viewModelScope)
     }
 

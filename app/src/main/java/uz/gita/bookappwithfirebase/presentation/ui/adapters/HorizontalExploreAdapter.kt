@@ -37,6 +37,7 @@ class HorizontalExploreAdapter @Inject constructor() :
         fun bind() {
             binding.apply {
                 txtTitle.text = list[adapterPosition].name
+                txtAuthor.text = list[adapterPosition].author
 
                 val imgUrl = list[adapterPosition].bookCoverUrl
 

@@ -19,16 +19,24 @@ class HomeViewModelImpl @Inject constructor(
 
     override val booksData = MutableLiveData<List<BookData>>()
     override val errorData = MutableLiveData<String>()
+    override val loadingData = MutableLiveData<Boolean>()
 
     init {
         getAllData()
     }
 
     private fun getAllData() {
+        loadingData.value = true
         repository.getRecommendedBooks()
             .onEach { bookData ->
-                bookData.onSuccess { booksData.value = it }
-                bookData.onFailure { errorData.value = it.message }
+                bookData.onSuccess {
+                    loadingData.value = false
+                    booksData.value = it
+                }
+                bookData.onFailure {
+                    loadingData.value = false
+                    errorData.value = it.message
+                }
             }.launchIn(viewModelScope)
     }
 

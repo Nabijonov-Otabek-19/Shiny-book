@@ -10,6 +10,7 @@ interface ExploreViewModel {
     val booksData: LiveData<List<AllBooksData>>
     val categoriesData: LiveData<List<CategoryData>>
     val errorData: LiveData<String>
+    val loadingData : LiveData<Boolean>
 
     fun navigateToAboutBookScreen(bookData: BookData)
 

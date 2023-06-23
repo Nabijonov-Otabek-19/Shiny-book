@@ -7,7 +7,8 @@ interface HomeViewModel {
 
     val booksData: LiveData<List<BookData>>
     val errorData: LiveData<String>
+    val loadingData: LiveData<Boolean>
 
     fun navigateToAboutScreen(bookData: BookData)
-    fun navigateToReadBookScreen( bookName: String, savedPage: Int, totalPage: Int)
+    fun navigateToReadBookScreen(bookName: String, savedPage: Int, totalPage: Int)
 }

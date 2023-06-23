@@ -40,6 +40,11 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
             logger("Explore screen error = $it")
         }
 
+        viewModel.loadingData.observe(viewLifecycleOwner) {
+            val isLoad = if (it) View.VISIBLE else View.GONE
+            viewBinding.progressBar.visibility = isLoad
+        }
+
         viewModel.categoriesData.observe(viewLifecycleOwner) {
 
         }

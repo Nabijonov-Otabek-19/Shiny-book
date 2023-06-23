@@ -66,5 +66,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             toasT(it)
             logger("HomeScreen Error = $it")
         }
+
+        viewModel.loadingData.observe(viewLifecycleOwner) {
+            val isLoad = if (it) View.VISIBLE else View.GONE
+            binding.progressBar.visibility = isLoad
+        }
     }
 }
