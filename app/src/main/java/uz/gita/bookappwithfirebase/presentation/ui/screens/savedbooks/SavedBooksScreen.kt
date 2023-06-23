@@ -24,10 +24,15 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
     @Inject
     lateinit var adapter: SavedAdapter
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         viewModel.getAllData(requireContext())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         adapter.setClickListener {
             viewModel.navigateToReadBookScreen(it.name, 0, it.page.toInt())
