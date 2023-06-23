@@ -12,8 +12,8 @@
         android:title="Saved" />
 
     <item
-        android:id="@+id/exploreScreen"
-        android:icon="@drawable/ic_explore"
-        android:title="Explore" />
+        android:id="@+id/searchScreen"
+        android:icon="@drawable/ic_search"
+        android:title="Search" />
 
 </menu>

@@ -7,7 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
+import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Inject
 
@@ -17,38 +19,42 @@ class HomeViewModelImpl @Inject constructor(
     private val direction: HomeDirection
 ) : HomeViewModel, ViewModel() {
 
-    override val booksData = MutableLiveData<List<BookData>>()
+    override val booksData = MutableLiveData<List<AllBooksData>>()
+    override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
     override val loadingData = MutableLiveData<Boolean>()
 
+    override fun navigateToAboutBookScreen(bookData: BookData) {
+        viewModelScope.launch {
+            direction.navigateToAboutBookScreen(bookData)
+        }
+    }
+
     init {
-        getAllData()
+        getAllCategories()
+        getAllBooks()
     }
 
-    private fun getAllData() {
+    override fun getAllBooks() {
         loadingData.value = true
-        repository.getRecommendedBooks()
-            .onEach { bookData ->
-                bookData.onSuccess {
-                    loadingData.value = false
-                    booksData.value = it
-                }
-                bookData.onFailure {
-                    loadingData.value = false
-                    errorData.value = it.message
-                }
+        repository.getBookProducts().onEach { result ->
+            result.onSuccess {
+                loadingData.value = false
+                booksData.value = it
+            }
+            result.onFailure {
+                loadingData.value = false
+                errorData.value = it.message
+            }
+        }.launchIn(viewModelScope)
+    }
+
+
+    override fun getAllCategories() {
+        repository.getCategories()
+            .onEach { categoryList ->
+                categoryList.onSuccess { categoriesData.value = it }
+                categoryList.onFailure { errorData.value = it.message }
             }.launchIn(viewModelScope)
-    }
-
-    override fun navigateToAboutScreen(bookData: BookData) {
-        viewModelScope.launch {
-            direction.navigateToAboutScreen(bookData)
-        }
-    }
-
-    override fun navigateToReadBookScreen(bookName: String, savedPage: Int, totalPage: Int) {
-        viewModelScope.launch {
-            direction.navigateToReadBookScreen(bookName, savedPage, totalPage)
-        }
     }
 }

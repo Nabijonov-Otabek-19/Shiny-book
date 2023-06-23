@@ -8,10 +8,10 @@ import uz.gita.bookappwithfirebase.presentation.ui.screens.about.AboutBookDirect
 import uz.gita.bookappwithfirebase.presentation.ui.screens.about.AboutBookDirectionImpl
 import uz.gita.bookappwithfirebase.presentation.ui.screens.bookread.BookReadDirection
 import uz.gita.bookappwithfirebase.presentation.ui.screens.bookread.BookReadDirectionImpl
-import uz.gita.bookappwithfirebase.presentation.ui.screens.explore.ExploreScreenDirection
-import uz.gita.bookappwithfirebase.presentation.ui.screens.explore.ExploreScreenDirectionImpl
 import uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeDirection
 import uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeDirectionImpl
+import uz.gita.bookappwithfirebase.presentation.ui.screens.search.SearchDirection
+import uz.gita.bookappwithfirebase.presentation.ui.screens.search.SearchDirectionImpl
 import uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBookDirection
 import uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBookDirectionImpl
 
@@ -20,13 +20,13 @@ import uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBookD
 interface DirectionModule {
 
     @Binds
-    fun bindHomeScreenDirection(impl: HomeDirectionImpl): HomeDirection
+    fun bindHomeScreenDirection(impl: SearchDirectionImpl): SearchDirection
 
     @Binds
     fun bindSavedBooksScreenDirection(impl: SavedBookDirectionImpl): SavedBookDirection
 
     @Binds
-    fun bindExploreScreenDirection(impl: ExploreScreenDirectionImpl): ExploreScreenDirection
+    fun bindExploreScreenDirection(impl: HomeDirectionImpl): HomeDirection
 
     @Binds
     fun bindBookReadScreenDirection(impl: BookReadDirectionImpl): BookReadDirection

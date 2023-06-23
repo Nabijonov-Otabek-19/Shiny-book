@@ -5,19 +5,21 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/homeScreen">
 
+    <!-- Explore Screen -->
     <fragment
-        android:id="@+id/homeScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeScreen"
-        android:label="HomeScreen"
-        tools:layout="@layout/screen_home">
+        android:id="@+id/searchScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.search.SearchScreen"
+        android:label="SearchScreen"
+        tools:layout="@layout/screen_search">
         <action
-            android:id="@+id/action_homeScreen_to_aboutBookScreen"
+            android:id="@+id/action_searchScreen_to_aboutBookScreen"
             app:destination="@id/aboutBookScreen" />
         <action
-            android:id="@+id/action_homeScreen_to_bookReadScreen"
+            android:id="@+id/action_searchScreen_to_bookReadScreen"
             app:destination="@id/bookReadScreen" />
     </fragment>
 
+    <!-- About Screen -->
     <fragment
         android:id="@+id/aboutBookScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.about.AboutBookScreen"
@@ -29,6 +31,7 @@
             app:nullable="true" />
     </fragment>
 
+    <!-- Saved Screen -->
     <fragment
         android:id="@+id/savedBooksScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBooksScreen"
@@ -39,16 +42,18 @@
             app:destination="@id/bookReadScreen" />
     </fragment>
 
+    <!-- Explore Screen -->
     <fragment
-        android:id="@+id/exploreScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.explore.ExploreScreen"
+        android:id="@+id/homeScreen"
+        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeScreen"
         android:label="HomeScreen"
-        tools:layout="@layout/screen_explore">
+        tools:layout="@layout/screen_home">
         <action
-            android:id="@+id/action_exploreScreen_to_aboutBookScreen"
+            android:id="@+id/action_homeScreen_to_aboutBookScreen"
             app:destination="@id/aboutBookScreen" />
     </fragment>
 
+    <!-- Book Read Screen -->
     <fragment
         android:id="@+id/bookReadScreen"
         android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.bookread.BookReadScreen"
