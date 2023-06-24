@@ -2,20 +2,21 @@ package uz.gita.bookappwithfirebase.presentation.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
+import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.databinding.ItemRecommendBookBinding
+import uz.gita.bookappwithfirebase.databinding.VerticalItemBinding
 import javax.inject.Inject
 
 class HomeAdapter @Inject constructor() : Adapter<HomeAdapter.ItemHolder>() {
 
-    private var list: List<BookData> = ArrayList()
+    private var list: List<AllBooksData> = ArrayList()
 
-    fun setData(l: List<BookData>) {
+    fun setData(l: List<AllBooksData>) {
         list = l
-        notifyItemRangeChanged(0, list.size)
+        notifyDataSetChanged()
     }
 
     private var clickListener: ((BookData) -> Unit)? = null
@@ -24,31 +25,27 @@ class HomeAdapter @Inject constructor() : Adapter<HomeAdapter.ItemHolder>() {
         clickListener = l
     }
 
-    inner class ItemHolder(private val binding: ItemRecommendBookBinding) :
+    inner class ItemHolder(private val binding: VerticalItemBinding) :
         ViewHolder(binding.root) {
 
-        init {
-            binding.root.setOnClickListener {
-                clickListener?.invoke(list[adapterPosition])
-            }
-        }
+        fun bind(data: AllBooksData) = with(binding) {
+            val innerAdapter = HorizontalHomeAdapter()
+            innerAdapter.setData(data.books)
+            horizontalRv.adapter = innerAdapter
+            horizontalRv.layoutManager =
+                LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
 
-        fun bind() {
-            binding.apply {
-                txtTitle.text = list[adapterPosition].name
-                txtAuthor.text = list[adapterPosition].author
+            binding.category.text = data.categoryName
 
-                val imgUrl = list[adapterPosition].bookCoverUrl
-
-                Glide.with(binding.root.context).load(imgUrl)
-                    .into(imgIcon)
+            innerAdapter.setClickListener {
+                clickListener?.invoke(it)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            ItemRecommendBookBinding.inflate(
+            VerticalItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -59,6 +56,6 @@ class HomeAdapter @Inject constructor() : Adapter<HomeAdapter.ItemHolder>() {
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind()
+        holder.bind(list[position])
     }
 }

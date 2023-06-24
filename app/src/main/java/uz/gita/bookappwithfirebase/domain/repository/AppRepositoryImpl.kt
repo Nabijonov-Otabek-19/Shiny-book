@@ -1,7 +1,6 @@
 package uz.gita.bookappwithfirebase.domain.repository
 
 import android.content.Context
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -24,14 +23,14 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
 
 
     override fun getBookProducts(): Flow<Result<List<AllBooksData>>> = callbackFlow {
-        fireStore.collection("bookProducts").get()
+        fireStore.collection(Constants.CN_BOOKS).get()
             .addOnSuccessListener { query ->
 
                 val list = arrayListOf<AllBooksData>()
                 query.forEach { data ->
-                    val categoryName = data.get("category").toString()
+                    val categoryName = data.get(Constants.CN_CATEGORY).toString()
 
-                    data.reference.collection("bookList").get()
+                    data.reference.collection(Constants.CN_BOOKLIST).get()
                         .addOnSuccessListener { subQuery ->
 
                             val subList = arrayListOf<BookData>()
@@ -70,67 +69,89 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
     }
 
     override fun getCategories(): Flow<Result<List<CategoryData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_CATEGORY_NAME).get()
-            .addOnSuccessListener {
-                val data = it.toObjects(CategoryData::class.java)
-                trySend(Result.success(data))
+        fireStore.collection(Constants.CN_BOOKS).get()
+            .addOnSuccessListener { query ->
+
+                val list = arrayListOf<CategoryData>()
+                query.forEach { data ->
+                    val categoryName = data.get(Constants.CN_CATEGORY).toString()
+                    list.add(CategoryData(categoryName))
+                }
+                trySend(Result.success(list))
             }
             .addOnFailureListener { trySend(Result.failure(it)) }
         awaitClose()
     }
 
     override fun getRecommendedBooks(): Flow<Result<List<BookData>>> = callbackFlow {
-        fireStore.collection(Constants.CN_BOOK_NAME).get()
-            .addOnSuccessListener {
-                val list = ArrayList<QueryDocumentSnapshot>()
+        fireStore.collection(Constants.CN_BOOKS).get()
+            .addOnSuccessListener { query ->
 
-                it.forEach { document -> list.add(document) }
-                val sizeOfCollection = it.size()
-
-                val randomDocuments = mutableListOf<BookData>()
-                val uniqueRandomIndexes = mutableSetOf<Int>()
-                val size = 3 // Random olmoqchi bo'lgan data lar soni
-
-                while (uniqueRandomIndexes.size < size) { // sikl bo'ylab random sonlarni olish
-                    uniqueRandomIndexes.add((0 until sizeOfCollection).random())
+                val list = arrayListOf<BookData>()
+                query.forEach { data ->
+                    data.reference.collection(Constants.CN_BOOKLIST).get()
+                        .addOnSuccessListener { subQuery ->
+                            subQuery.forEach { bookData ->
+                                list.add(bookData.toObject() as BookData)
+                            }
+                            trySend(Result.success(list))
+                        }
+                        .addOnFailureListener { trySend(Result.failure(it)) }
                 }
+            }
+            .addOnFailureListener { trySend(Result.failure(it)) }
+        awaitClose()
+    }
 
-                uniqueRandomIndexes.forEach { randomIndex ->
-                    val data = list[randomIndex].toObject(BookData::class.java)
-                    randomDocuments.add(data)
+    override fun getBooksByCategory(category: String): Flow<Result<List<BookData>>> = callbackFlow {
+        fireStore.collection(Constants.CN_BOOKS).get()
+            .addOnSuccessListener { query ->
+
+                val list = arrayListOf<BookData>()
+                query.forEach { data ->
+                    val categoryName = data.get(Constants.CN_CATEGORY).toString()
+                    if (category == categoryName) {
+                        data.reference.collection(Constants.CN_BOOKLIST).get()
+                            .addOnSuccessListener { subQuery ->
+                                subQuery.forEach { bookData ->
+                                    list.add(bookData.toObject() as BookData)
+                                }
+                                trySend(Result.success(list))
+                            }
+                            .addOnFailureListener { trySend(Result.failure(it)) }
+
+                        return@addOnSuccessListener
+                    }
                 }
-                trySend(Result.success(randomDocuments))
             }
-            .addOnFailureListener {
-                trySend(Result.failure(it))
-            }
+            .addOnFailureListener { trySend(Result.failure(it)) }
         awaitClose()
     }
 
     override fun getSavedBookProducts(context: Context):
             Flow<Result<List<BookData>>> = callbackFlow {
 
-            fireStore.collection("bookProducts").get()
-                .addOnSuccessListener { query ->
+        fireStore.collection(Constants.CN_BOOKS).get()
+            .addOnSuccessListener { query ->
 
-                    val list = arrayListOf<BookData>()
-                    query.forEach { data ->
-                        data.reference.collection("bookList").get()
-                            .addOnSuccessListener { subQuery ->
-                                subQuery.forEach { bookData ->
-                                    val book =
-                                        File(context.filesDir, bookData.get("name").toString())
-                                    if (book.exists()) {
-                                        val temp = bookData.toObject(BookData::class.java)
-                                        list.add(temp)
-                                        trySend(Result.success(list))
-                                    }
+                val list = arrayListOf<BookData>()
+                query.forEach { data ->
+                    data.reference.collection(Constants.CN_BOOKLIST).get()
+                        .addOnSuccessListener { subQuery ->
+                            subQuery.forEach { bookData ->
+                                val book =
+                                    File(context.filesDir, bookData.get("name").toString())
+                                if (book.exists()) {
+                                    val temp = bookData.toObject(BookData::class.java)
+                                    list.add(temp)
+                                    trySend(Result.success(list))
                                 }
                             }
-                            .addOnFailureListener { trySend(Result.failure(it)) }
-                    }
+                        }
+                        .addOnFailureListener { trySend(Result.failure(it)) }
                 }
-                .addOnFailureListener { trySend(Result.failure(it)) }
-            awaitClose()
-        }
+            }
+            .addOnFailureListener { trySend(Result.failure(it)) }
+        awaitClose()
+    }
 }

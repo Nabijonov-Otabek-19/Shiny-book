@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.bookappwithfirebase.data.common.BookData
+import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Inject
 
@@ -18,8 +19,22 @@ class SearchViewModelImpl @Inject constructor(
 ) : SearchViewModel, ViewModel() {
 
     override val booksData = MutableLiveData<List<BookData>>()
+    override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
     override val loadingData = MutableLiveData<Boolean>()
+
+    override fun getBooksByCategory(category: String) {
+        repository.getBooksByCategory(category).onEach { bookData ->
+            bookData.onSuccess {
+                loadingData.value = false
+                booksData.value = it
+            }
+            bookData.onFailure {
+                loadingData.value = false
+                errorData.value = it.message
+            }
+        }.launchIn(viewModelScope)
+    }
 
     init {
         getAllData()
@@ -27,6 +42,7 @@ class SearchViewModelImpl @Inject constructor(
 
     private fun getAllData() {
         loadingData.value = true
+
         repository.getRecommendedBooks()
             .onEach { bookData ->
                 bookData.onSuccess {
@@ -38,6 +54,11 @@ class SearchViewModelImpl @Inject constructor(
                     errorData.value = it.message
                 }
             }.launchIn(viewModelScope)
+
+        repository.getCategories().onEach { result ->
+            result.onSuccess { categoriesData.value = it }
+            result.onFailure { errorData.value = it.message }
+        }.launchIn(viewModelScope)
     }
 
     override fun navigateToAboutScreen(bookData: BookData) {

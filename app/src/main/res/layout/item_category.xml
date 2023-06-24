@@ -6,13 +6,14 @@
     android:layout_margin="4dp"
     android:background="@drawable/edittext_bg"
     android:elevation="4dp"
-    android:padding="12dp">
+    android:padding="10dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/amarante"
         android:text="Something"
         android:textColor="@color/black"
         android:textSize="16sp"

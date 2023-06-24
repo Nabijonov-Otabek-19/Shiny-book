@@ -55,12 +55,11 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
             val file = File(requireContext().filesDir, it.name)
             val deleted = if (file.exists()) file.delete() else false
 
-            if (deleted) {
-                toasT("Book deleted")
-            } else {
-                toasT("File not found")
-                logger("File not found")
-            }
+            if (sharedPref.bookName == it.name) sharedPref.deleteCurrentBook()
+
+            if (deleted) toasT("Book deleted")
+            else toasT("File not found")
+
             viewModel.getAllData(requireContext())
         }
 
@@ -93,7 +92,13 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
             adapter.setData(it)
         }
 
+        viewModel.loadingData.observe(viewLifecycleOwner) {
+            val isLoad = if (it) View.VISIBLE else View.GONE
+            binding.progressBar.visibility = isLoad
+        }
+
         viewModel.errorData.observe(viewLifecycleOwner) {
+            toasT(it)
             logger("SavedScreen error = $it")
         }
     }

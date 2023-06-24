@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappwithfirebase.R
 import uz.gita.bookappwithfirebase.databinding.ScreenHomeBinding
-import uz.gita.bookappwithfirebase.presentation.ui.adapters.ExploreAdapter
+import uz.gita.bookappwithfirebase.presentation.ui.adapters.HomeAdapter
 import uz.gita.bookappwithfirebase.utils.logger
 import javax.inject.Inject
 
@@ -21,8 +21,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val viewModel by viewModels<HomeViewModelImpl>()
 
     @Inject
-    lateinit var adapter: ExploreAdapter
-
+    lateinit var adapter: HomeAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

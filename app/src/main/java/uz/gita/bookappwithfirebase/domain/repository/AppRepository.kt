@@ -17,4 +17,6 @@ interface AppRepository {
     fun getCategories(): Flow<Result<List<CategoryData>>>
 
     fun getRecommendedBooks(): Flow<Result<List<BookData>>>
+
+    fun getBooksByCategory(category: String): Flow<Result<List<BookData>>>
 }

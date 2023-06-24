@@ -86,11 +86,7 @@ class BookReadScreen : Fragment(R.layout.screen_book_read), OnPageChangeListener
 
         } else {
             logger("Book is deleted from recent")
-            sharedPref.bookName = ""
-            sharedPref.savedPage = 0
-            sharedPref.totalPage = 0
-            sharedPref.percentage = 0
-            logger(sharedPref.bookName)
+            sharedPref.deleteCurrentBook()
         }
     }
 

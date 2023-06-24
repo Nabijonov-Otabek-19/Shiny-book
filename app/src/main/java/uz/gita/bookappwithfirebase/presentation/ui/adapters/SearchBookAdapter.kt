@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.databinding.ItemBookBinding
+import uz.gita.bookappwithfirebase.databinding.ItemRecommendBookBinding
 import javax.inject.Inject
 
-class HorizontalExploreAdapter @Inject constructor() :
-    Adapter<HorizontalExploreAdapter.ItemHolder>() {
+class SearchBookAdapter @Inject constructor() : Adapter<SearchBookAdapter.ItemHolder>() {
 
     private var list: List<BookData> = ArrayList()
 
@@ -25,7 +24,7 @@ class HorizontalExploreAdapter @Inject constructor() :
         clickListener = l
     }
 
-    inner class ItemHolder(private val binding: ItemBookBinding) :
+    inner class ItemHolder(private val binding: ItemRecommendBookBinding) :
         ViewHolder(binding.root) {
 
         init {
@@ -36,10 +35,14 @@ class HorizontalExploreAdapter @Inject constructor() :
 
         fun bind() {
             binding.apply {
-                txtTitle.text = list[adapterPosition].name
-                txtAuthor.text = list[adapterPosition].author
+                val data = list[adapterPosition]
+                txtTitle.text = data.name
+                txtAuthor.text = data.author
+                txtGenre.text = "Genre: ${data.genre}"
+                txtPage.text = "Page: ${data.page}"
+                txtYear.text = "Year: ${data.year}"
 
-                val imgUrl = list[adapterPosition].bookCoverUrl
+                val imgUrl = data.bookCoverUrl
 
                 Glide.with(binding.root.context).load(imgUrl)
                     .into(imgIcon)
@@ -49,7 +52,7 @@ class HorizontalExploreAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder(
-            ItemBookBinding.inflate(
+            ItemRecommendBookBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

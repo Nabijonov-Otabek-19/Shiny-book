@@ -41,4 +41,11 @@ class SharedPref @Inject constructor() {
     var percentage: Int
         set(value) = editor.putInt(PERCENTAGE, value).apply()
         get() = pref.getInt(PERCENTAGE, 0)
+
+    fun deleteCurrentBook(){
+        bookName = ""
+        savedPage = 0
+        totalPage = 0
+        percentage = 0
+    }
 }
