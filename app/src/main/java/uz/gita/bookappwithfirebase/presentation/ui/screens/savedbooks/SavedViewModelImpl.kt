@@ -19,7 +19,6 @@ class SavedViewModelImpl @Inject constructor(
 ) : SavedViewModel, ViewModel() {
 
     override val booksData = MutableLiveData<List<BookData>>()
-    override val loadingData = MutableLiveData<Boolean>()
     override val errorData = MutableLiveData<String>()
 
     override fun navigateToReadBookScreen(bookName: String, savedPage: Int, totalPage: Int) {
@@ -30,16 +29,9 @@ class SavedViewModelImpl @Inject constructor(
 
 
     fun getAllData(context: Context) {
-        loadingData.value = true
         repository.getSavedBookProducts(context).onEach { result ->
-            result.onSuccess {
-                loadingData.value = false
-                booksData.value = it
-            }
-            result.onFailure {
-                loadingData.value = false
-                errorData.value = it.message
-            }
+            result.onSuccess { booksData.value = it }
+            result.onFailure { errorData.value = it.message }
         }.launchIn(viewModelScope)
     }
 }
