@@ -9,5 +9,6 @@ data class BookData(
     val page: String = "",
     val genre: String = "",
     val year: String = "",
-    val bookUrl: String = ""
+    val bookUrl: String = "",
+    val about : String = ""
 ) : Serializable

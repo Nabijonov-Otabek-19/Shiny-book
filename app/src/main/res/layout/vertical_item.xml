@@ -11,8 +11,9 @@
         style="@style/MyTextStyle"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_vertical"
-        android:text="SubCategory #1"
+        android:text="SubCategory 1"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />

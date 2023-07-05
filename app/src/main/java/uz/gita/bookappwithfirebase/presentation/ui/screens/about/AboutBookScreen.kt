@@ -42,6 +42,7 @@ class AboutBookScreen : Fragment(R.layout.screen_about_book) {
             txtGenre.text = "Genre: ${bookData.genre}"
             txtPage.text = "Pages: ${bookData.page}"
             txtYear.text = "Year: ${bookData.year}"
+            txtAbout.text = bookData.about
 
             Glide.with(requireContext()).load(bookData.bookCoverUrl).into(imgBook)
 
