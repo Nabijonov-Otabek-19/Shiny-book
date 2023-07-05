@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/aladin</item>
         <item>@font/amarante</item>
+        <item>@font/arapey</item>
+        <item>@font/caladea</item>
+        <item>@font/tillana</item>
     </array>
 </resources>

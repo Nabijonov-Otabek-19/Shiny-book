@@ -27,9 +27,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MyTextStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/amarante"
             android:text="Home page"
             android:textColor="@color/white"
             android:textSize="20sp"

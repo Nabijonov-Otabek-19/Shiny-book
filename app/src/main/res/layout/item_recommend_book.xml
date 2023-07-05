@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
@@ -32,9 +32,9 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtTitle"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/amarante"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="name"
@@ -44,42 +44,42 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtAuthor"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:fontFamily="@font/amarante"
                 android:text="Author :"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtGenre"
-                android:layout_marginTop="4dp"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:fontFamily="@font/amarante"
                 android:text="Genre :"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtYear"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/amarante"
                 android:text="Year :"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtPage"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/amarante"
                 android:text="Page :"
                 android:textColor="@color/black"
                 android:textSize="14sp" />

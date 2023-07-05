@@ -10,10 +10,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txtCategory"
+        style="@style/MyTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:fontFamily="@font/amarante"
         android:text="Something"
         android:textColor="@color/black"
         android:textSize="16sp"

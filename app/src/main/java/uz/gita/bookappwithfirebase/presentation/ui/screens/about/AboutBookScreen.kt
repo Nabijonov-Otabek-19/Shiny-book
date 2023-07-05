@@ -26,7 +26,8 @@ class AboutBookScreen : Fragment(R.layout.screen_about_book) {
     private val viewModel by viewModels<AboutBookViewModelImpl>()
     private val args by navArgs<AboutBookScreenArgs>()
 
-    @Inject lateinit var repository : AppRepositoryImpl
+    @Inject
+    lateinit var repository: AppRepositoryImpl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,13 +58,17 @@ class AboutBookScreen : Fragment(R.layout.screen_about_book) {
             }
 
             btnDownload.setOnClickListener {
+                binding.progressBar.visibility = View.VISIBLE
                 repository.downloadBookByUrl(requireContext(), bookData)
                     .onEach { data ->
                         data.onSuccess {
+                            binding.progressBar.visibility = View.GONE
                             toasT("Book saved")
                         }
                         data.onFailure { e ->
+                            binding.progressBar.visibility = View.GONE
                             logger("AboutBookScreen error = ${e.message}")
+                            toasT(e.message ?: "Error")
                         }
                     }.launchIn(lifecycleScope)
                 btnDownload.setImageResource(R.drawable.ic_saved)

@@ -144,9 +144,9 @@ class AppRepositoryImpl @Inject constructor() : AppRepository {
                                 if (book.exists()) {
                                     val temp = bookData.toObject(BookData::class.java)
                                     list.add(temp)
-                                    trySend(Result.success(list))
                                 }
                             }
+                            trySend(Result.success(list))
                         }
                         .addOnFailureListener { trySend(Result.failure(it)) }
                 }

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.bookappwithfirebase.data.common.AllBooksData
 import uz.gita.bookappwithfirebase.data.common.BookData
-import uz.gita.bookappwithfirebase.data.common.CategoryData
 import uz.gita.bookappwithfirebase.domain.repository.AppRepositoryImpl
 import javax.inject.Inject
 
@@ -20,7 +19,6 @@ class HomeViewModelImpl @Inject constructor(
 ) : HomeViewModel, ViewModel() {
 
     override val booksData = MutableLiveData<List<AllBooksData>>()
-    override val categoriesData = MutableLiveData<List<CategoryData>>()
     override val errorData = MutableLiveData<String>()
     override val loadingData = MutableLiveData<Boolean>()
 
@@ -31,7 +29,6 @@ class HomeViewModelImpl @Inject constructor(
     }
 
     init {
-        getAllCategories()
         getAllBooks()
     }
 
@@ -47,14 +44,5 @@ class HomeViewModelImpl @Inject constructor(
                 errorData.value = it.message
             }
         }.launchIn(viewModelScope)
-    }
-
-
-    override fun getAllCategories() {
-        repository.getCategories()
-            .onEach { categoryList ->
-                categoryList.onSuccess { categoriesData.value = it }
-                categoryList.onFailure { errorData.value = it.message }
-            }.launchIn(viewModelScope)
     }
 }

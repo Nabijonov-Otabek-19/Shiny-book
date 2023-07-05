@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
@@ -67,10 +77,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtName"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
-                android:fontFamily="@font/amarante"
                 android:gravity="center"
                 android:text="Book name"
                 android:textColor="@color/black"
@@ -82,10 +92,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtAuthor"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
-                android:fontFamily="@font/amarante"
                 android:text="Book author: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -95,10 +105,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtPage"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
-                android:fontFamily="@font/amarante"
                 android:text="Pages: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -109,10 +119,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtYear"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
-                android:fontFamily="@font/amarante"
                 android:text="Year: "
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -122,10 +132,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtGenre"
+                style="@style/MyTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="8dp"
-                android:fontFamily="@font/amarante"
                 android:text="Book genre: "
                 android:textColor="@color/black"
                 android:textSize="18sp"

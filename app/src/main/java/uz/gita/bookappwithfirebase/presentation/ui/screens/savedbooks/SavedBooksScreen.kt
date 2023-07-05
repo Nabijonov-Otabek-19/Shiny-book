@@ -55,12 +55,15 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
             val file = File(requireContext().filesDir, it.name)
             val deleted = if (file.exists()) file.delete() else false
 
+            if (deleted){
+                viewModel.getAllData(requireContext())
+                toasT("Book deleted")
+            }
+            else {
+                toasT("File not found")
+            }
+
             if (sharedPref.bookName == it.name) sharedPref.deleteCurrentBook()
-
-            if (deleted) toasT("Book deleted")
-            else toasT("File not found")
-
-            viewModel.getAllData(requireContext())
         }
 
         binding.apply {
@@ -78,6 +81,7 @@ class SavedBooksScreen : Fragment(R.layout.screen_saved) {
         }
 
         viewModel.booksData.observe(viewLifecycleOwner) {
+            logger("SavedScreen Data = ${it.size}")
             if (it.isEmpty()) {
                 binding.apply {
                     imgNoBooks.visibility = View.VISIBLE

@@ -27,9 +27,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtPages"
+            style="@style/MyTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:fontFamily="@font/amarante"
             android:gravity="center"
             android:padding="12dp"
             android:text="100/1000"
