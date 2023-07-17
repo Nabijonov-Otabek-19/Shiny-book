@@ -1,4 +1,6 @@
-# Book-app-with-Firebase
+# Shiny book
+
+# E-Book app with Firebase
 
 Screenshots : 
 
