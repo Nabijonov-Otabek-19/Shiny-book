@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'uz.gita.bookappwithfirebase'
+    namespace 'uz.nabijonov.otabek.bookapp_bek'
     compileSdk 33
 
     defaultConfig {
-        applicationId "uz.gita.bookappwithfirebase"
+        applicationId "uz.nabijonov.otabek.bookapp_bek"
         minSdk 26
         targetSdk 33
         versionCode 1

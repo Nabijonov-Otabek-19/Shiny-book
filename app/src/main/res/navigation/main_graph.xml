@@ -5,10 +5,10 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/homeScreen">
 
-    <!-- Explore Screen -->
+    <!-- Search Screen -->
     <fragment
         android:id="@+id/searchScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.search.SearchScreen"
+        android:name="uz.nabijonov.otabek.bookapp_bek.presentation.ui.screens.search.SearchScreen"
         android:label="SearchScreen"
         tools:layout="@layout/screen_search">
         <action
@@ -22,19 +22,19 @@
     <!-- About Screen -->
     <fragment
         android:id="@+id/aboutBookScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.about.AboutBookScreen"
+        android:name="uz.nabijonov.otabek.bookapp_bek.presentation.ui.screens.about.AboutBookScreen"
         android:label="AboutBookScreen"
         tools:layout="@layout/screen_about_book">
         <argument
             android:name="bookData"
-            app:argType="uz.gita.bookappwithfirebase.data.common.BookData"
+            app:argType="uz.nabijonov.otabek.bookapp_bek.data.common.BookData"
             app:nullable="true" />
     </fragment>
 
     <!-- Saved Screen -->
     <fragment
         android:id="@+id/savedBooksScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.savedbooks.SavedBooksScreen"
+        android:name="uz.nabijonov.otabek.bookapp_bek.presentation.ui.screens.savedbooks.SavedBooksScreen"
         android:label="SavedBooksScreen"
         tools:layout="@layout/screen_saved">
         <action
@@ -42,10 +42,10 @@
             app:destination="@id/bookReadScreen" />
     </fragment>
 
-    <!-- Explore Screen -->
+    <!-- Home Screen -->
     <fragment
         android:id="@+id/homeScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.home.HomeScreen"
+        android:name="uz.nabijonov.otabek.bookapp_bek.presentation.ui.screens.home.HomeScreen"
         android:label="HomeScreen"
         tools:layout="@layout/screen_home">
         <action
@@ -56,7 +56,7 @@
     <!-- Book Read Screen -->
     <fragment
         android:id="@+id/bookReadScreen"
-        android:name="uz.gita.bookappwithfirebase.presentation.ui.screens.bookread.BookReadScreen"
+        android:name="uz.nabijonov.otabek.bookapp_bek.presentation.ui.screens.bookread.BookReadScreen"
         android:label="BookReadScreen"
         tools:layout="@layout/screen_book_read">
 
