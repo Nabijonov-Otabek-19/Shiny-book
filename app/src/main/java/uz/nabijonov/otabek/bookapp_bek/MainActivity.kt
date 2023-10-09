@@ -48,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         navigationHandler
             .navigationBuffer
-            .onEach {
-                it(navController)
-            }.launchIn(lifecycleScope)
+            .onEach { it(navController) }
+            .launchIn(lifecycleScope)
     }
 }
