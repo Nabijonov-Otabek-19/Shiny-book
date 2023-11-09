@@ -10,9 +10,7 @@ class HomeDirectionImpl @Inject constructor(
 
     override suspend fun navigateToAboutBookScreen(bookData: BookData) {
         appNavigator.navigateTo(
-            HomeScreenDirections.actionHomeScreenToAboutBookScreen(
-                bookData
-            )
+            HomeScreenDirections.actionHomeScreenToAboutBookScreen(bookData)
         )
     }
 }
